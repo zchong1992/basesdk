@@ -15,6 +15,7 @@
 #include "./inc/base64.h"
 #include "./inc/pointer.h"
 #include "./inc/dir.h"
+#include "./inc/baseDataType.h"
 namespace baseservice
 {
 

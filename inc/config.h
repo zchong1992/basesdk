@@ -17,14 +17,14 @@ namespace baseservice
     class znconfig
     {
     public:
-        int loadfile(char * finename);
+        int loadfile(const char * finename);
         static znconfig* Getznconfig();
-        int insertData(char *,char*);
+        int insertData(const char *,const char*);
         int print();
-        void save(char *path);
-        int add(char *key,char* vlaue);
-        int del(char *key);
-        const char * Getvalue(char *key);
+        void save(const char *path);
+        int add(const char *key,const char* vlaue);
+        int del(const char *key);
+        const char * Getvalue(const char *key);
     private:
         zkv * m_zkv;
         znconfig();

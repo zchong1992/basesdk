@@ -82,7 +82,7 @@ namespace baseservice{
         m_zkv=0;
     }
     
-    int znconfig::insertData(char *key,char*value)
+    int znconfig::insertData(const char *key,const char*value)
     {
         if(key==0||value==0)
         {
@@ -122,7 +122,7 @@ namespace baseservice{
         }
         
     }
-    void znconfig::save(char *path)
+    void znconfig::save(const char *path)
     {
         zkv *pn;
         pn=m_zkv;
@@ -144,11 +144,11 @@ namespace baseservice{
         fclose(fp);
         
     }
-    int znconfig::add(char *key,char* vlaue)
+    int znconfig::add(const char *key,const char* vlaue)
     {
         return 1;
     }
-    int znconfig::del(char *key)
+    int znconfig::del(const char *key)
     {
         return 1;
     }
@@ -160,7 +160,7 @@ namespace baseservice{
         }
         return m_znconfig;
     }
-    const char * znconfig::Getvalue(char *key)
+    const char * znconfig::Getvalue(const char *key)
     {
         zkv *pn;
         pn=m_zkv;
@@ -194,7 +194,7 @@ namespace baseservice{
         }
         SYS_LOG(3,"---------------------------------------------\n");
     }
-    int znconfig::loadfile(char * filename)
+    int znconfig::loadfile(const char * filename)
     {
         char buf[10240];
         int line,complier;

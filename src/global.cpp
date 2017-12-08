@@ -36,7 +36,7 @@ namespace baseservice{
 		
 	}
 	void cutOffTailOf_R_N_Space(char *str,int len)
-	{	
+	{	
 		int end=len;
 		while(end>0)
 		{

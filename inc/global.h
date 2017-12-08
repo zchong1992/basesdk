@@ -241,7 +241,9 @@ template <typename Type>  void resort(Type * _start, Type *_end,int size)
           end-=size;
      }
 }
-
+#ifndef USE_VAR
+#define USE_VAR(a) if(&a==&a){}
+#endif
 void cutOffTailOf_R_N_Space(char *str);
 void cutOffTailOf_R_N_Space(char *str,int len);
 

@@ -6,15 +6,6 @@
 #include "log.h"
 
 namespace baseservice{
-     struct baseImg_s
-    {
-         int width;
-        int height;
-        int widthStep;
-        int channels;
-        unsigned char *data;
-    };
-
      class zkznImg
     {
     public:
@@ -23,23 +14,6 @@ namespace baseservice{
           static int  createbmpheader(unsigned char *buf,int *length,const int width,const int height,const int channels);
      };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif
 

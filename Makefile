@@ -5,8 +5,6 @@ OBJS := $(patsubst %.cpp, %.o,$(SOURCES))
 #MYOBJS :=$(notdir, $(OBJS))
 XDS := $(patsubst %.cpp, %.d,$(SOURCES))
 INC=-I./inc -I. 
-#-I./lib/libjpeg/include
-#LIBS=lib/libjpeg/lib/libjpeg.a
 CC = g++
 AR=ar
 RM=-rm
