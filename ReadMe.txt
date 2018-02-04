@@ -1,6 +1,0 @@
-此库为window和linux下通用库，用于快速开发，集成简单常用功能
-网络socket创建
-bmp文件读写
-log文件使用
-base64转码
-aes加解密
