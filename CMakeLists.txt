@@ -1,3 +1,5 @@
 cmake_minimum_required(VERSION 3.4)
 set(subDir src)
+set(testDir test)
 ADD_SUBDIRECTORY(${subDir})
+ADD_SUBDIRECTORY(${testDir})
