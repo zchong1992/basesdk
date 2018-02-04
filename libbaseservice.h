@@ -6,16 +6,15 @@
 
 
 #include "./inc/config.h"
-#include "./inc/heartbeat.h"
 #include "./inc/log.h"
 #include "./inc/segmentfault.h"
-#include "./inc/object.h"
 #include "./inc/img.h"
 #include "./inc/aes.h"
 #include "./inc/base64.h"
 #include "./inc/pointer.h"
 #include "./inc/dir.h"
 #include "./inc/baseDataType.h"
+
 namespace baseservice
 {
 

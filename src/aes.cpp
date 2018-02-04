@@ -11,9 +11,9 @@
 #endif 
 namespace baseservice{
 
-AES::AES(UINT1* key)
+AES::AES(ZUINT1* key)
 {
-     const UINT1 sBox[] =
+     const ZUINT1 sBox[] =
      { /*  0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f */ 
           0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76, /*0*/  
           0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0, /*1*/
@@ -32,7 +32,7 @@ AES::AES(UINT1* key)
           0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf, /*e*/ 
           0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16  /*f*/
      };
-     const UINT1 invsBox[256] =
+     const ZUINT1 invsBox[256] =
      { /*  0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f  */  
           0x52,0x09,0x6a,0xd5,0x30,0x36,0xa5,0x38,0xbf,0x40,0xa3,0x9e,0x81,0xf3,0xd7,0xfb, /*0*/ 
           0x7c,0xe3,0x39,0x82,0x9b,0x2f,0xff,0x87,0x34,0x8e,0x43,0x44,0xc4,0xde,0xe9,0xcb, /*1*/
@@ -64,13 +64,13 @@ AES::~AES()
 
 }
 
-void AES::SetKey (UINT1 *key) {
+void AES::SetKey (ZUINT1 *key) {
      KeyExpansion(key, w);
 }
 
-UINT1* AES::Cipher(UINT1* input, UINT1 *output)
+ZUINT1* AES::Cipher(ZUINT1* input, ZUINT1 *output)
 {
-     UINT1 state[4][4];
+     ZUINT1 state[4][4];
      int i,r,c;
 
      for(r=0; r<4; r++)
@@ -102,9 +102,9 @@ UINT1* AES::Cipher(UINT1* input, UINT1 *output)
      return output;
 }
 
-UINT1* AES::InvCipher(UINT1* input, UINT1 *output)
+ZUINT1* AES::InvCipher(ZUINT1* input, ZUINT1 *output)
 {
-     UINT1 state[4][4];
+     ZUINT1 state[4][4];
      int i,r,c;
 
      for(r=0; r<4; r++)
@@ -139,13 +139,13 @@ UINT1* AES::InvCipher(UINT1* input, UINT1 *output)
 
 void* AES::Cipher(void* input,  void *output, int length)
 {
-     UINT1* in = (UINT1*) input;
-     UINT1* out = (UINT1*) output;
+     ZUINT1* in = (ZUINT1*) input;
+     ZUINT1* out = (ZUINT1*) output;
      int i;
      if(!length)
      {
           while(*(in+length++));
-          in = (UINT1*) input;
+          in = (ZUINT1*) input;
      }
      for(i=0; i<length; i+=16)
      {
@@ -156,8 +156,8 @@ void* AES::Cipher(void* input,  void *output, int length)
 
 void* AES::InvCipher(void* input, void* output, int length)
 {
-     UINT1* in = (UINT1*) input;
-     UINT1* out = (UINT1*) output;
+     ZUINT1* in = (ZUINT1*) input;
+     ZUINT1* out = (ZUINT1*) output;
      int i;
      for(i=0; i<length; i+=16)
      {
@@ -166,10 +166,10 @@ void* AES::InvCipher(void* input, void* output, int length)
      return output;
 }
 
-void AES::KeyExpansion(UINT1* key, UINT1 w[][4][4])
+void AES::KeyExpansion(ZUINT1* key, ZUINT1 w[][4][4])
 {
      int i,j,r,c;
-     UINT1 rc[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36};
+     ZUINT1 rc[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36};
      for(r=0; r<4; r++)
      {
           for(c=0; c<4; c++)
@@ -181,14 +181,14 @@ void AES::KeyExpansion(UINT1* key, UINT1 w[][4][4])
      {
           for(j=0; j<4; j++)
           {
-               UINT1 t[4];
+               ZUINT1 t[4];
                for(r=0; r<4; r++)
                {
                     t[r] = j ? w[i][r][j-1] : w[i-1][r][3];
                }
                if(j == 0)
                {
-                    UINT1 temp = t[0];
+                    ZUINT1 temp = t[0];
                     for(r=0; r<3; r++)
                     {
                          t[r] = Sbox[t[(r+1)%4]];
@@ -212,15 +212,15 @@ void AES::FFmul_init()
                FFmul_speed[i][j] = FFmul(i, j);
           }
 }
-inline UINT1 AES::FFmul_fast(UINT1 a, UINT1 b)
+inline ZUINT1 AES::FFmul_fast(ZUINT1 a, ZUINT1 b)
 {
      return FFmul_speed[a][b];
 }
 
-UINT1 AES::FFmul(UINT1 a, UINT1 b)
+ZUINT1 AES::FFmul(ZUINT1 a, ZUINT1 b)
 {
-     UINT1 bw[4];
-     UINT1 res=0;
+     ZUINT1 bw[4];
+     ZUINT1 res=0;
      int i;
      bw[0] = b;
      for(i=1; i<4; i++)
@@ -241,7 +241,7 @@ UINT1 AES::FFmul(UINT1 a, UINT1 b)
      return res;
 }
 
-void AES::SubBytes(UINT1 state[][4])
+void AES::SubBytes(ZUINT1 state[][4])
 {
      int r,c;
      for(r=0; r<4; r++)
@@ -253,9 +253,9 @@ void AES::SubBytes(UINT1 state[][4])
      }
 }
 
-void AES::ShiftRows(UINT1 state[][4])
+void AES::ShiftRows(ZUINT1 state[][4])
 {
-     UINT1 t[4];
+     ZUINT1 t[4];
      int r,c;
      for(r=1; r<4; r++)
      {
@@ -270,9 +270,9 @@ void AES::ShiftRows(UINT1 state[][4])
      }
 }
 
-void AES::MixColumns(UINT1 state[][4])
+void AES::MixColumns(ZUINT1 state[][4])
 {
-     UINT1 t[4];
+     ZUINT1 t[4];
      int r,c;
      for(c=0; c< 4; c++)
      {
@@ -290,7 +290,7 @@ void AES::MixColumns(UINT1 state[][4])
      }
 }
 
-void AES::AddRoundKey(UINT1 state[][4], UINT1 k[][4])
+void AES::AddRoundKey(ZUINT1 state[][4], ZUINT1 k[][4])
 {
      int r,c;
      for(c=0; c<4; c++)
@@ -302,7 +302,7 @@ void AES::AddRoundKey(UINT1 state[][4], UINT1 k[][4])
      }
 }
 
-void AES::InvSubBytes(UINT1 state[][4])
+void AES::InvSubBytes(ZUINT1 state[][4])
 {
      int r,c;
      for(r=0; r<4; r++)
@@ -314,9 +314,9 @@ void AES::InvSubBytes(UINT1 state[][4])
      }
 }
 
-void AES::InvShiftRows(UINT1 state[][4])
+void AES::InvShiftRows(ZUINT1 state[][4])
 {
-     UINT1 t[4];
+     ZUINT1 t[4];
      int r,c;
      for(r=1; r<4; r++)
      {
@@ -331,9 +331,9 @@ void AES::InvShiftRows(UINT1 state[][4])
      }
 }
 
-void AES::InvMixColumns(UINT1 state[][4])
+void AES::InvMixColumns(ZUINT1 state[][4])
 {
-     UINT1 t[4];
+     ZUINT1 t[4];
      int r,c;
      for(c=0; c< 4; c++)
      {
@@ -379,25 +379,25 @@ void AESModeOfOperation::set_mode(AESMode_t _mode) {
      m_mode = _mode;
 }
 
-void AESModeOfOperation::set_key(UINT1 *_key) {
+void AESModeOfOperation::set_key(ZUINT1 *_key) {
      assert(_key != NULL);
      memcpy(m_key, _key, 16);
      m_aes->SetKey(m_key);
 }
-void AESModeOfOperation::set_iv(UINT1 *_iv) {
+void AESModeOfOperation::set_iv(ZUINT1 *_iv) {
      assert(_iv != NULL);
      memcpy(m_iv, _iv, 16);
 }
 
-int AESModeOfOperation::Encrypt(const UINT1 *_in, int _length, UINT1 *_out) {
+int AESModeOfOperation::Encrypt(const ZUINT1 *_in, int _length, ZUINT1 *_out) {
      bool first_round = true;
      int rounds = 0;
      int start = 0;
      int end = 0;
-     UINT1 input[16] = {0};
-     UINT1 output[16] = {0};
-     UINT1 ciphertext[16] = {0};
-     UINT1 plaintext[16] = {0};
+     ZUINT1 input[16] = {0};
+     ZUINT1 output[16] = {0};
+     ZUINT1 ciphertext[16] = {0};
+     ZUINT1 plaintext[16] = {0};
      float lastLen = 0.0f;
      int co_index = 0;
      // 1. get rounds
@@ -488,14 +488,14 @@ int AESModeOfOperation::Encrypt(const UINT1 *_in, int _length, UINT1 *_out) {
      return co_index;
 }
 
-int AESModeOfOperation::Decrypt(const UINT1 *_in, int _length, UINT1 *_out) {
+int AESModeOfOperation::Decrypt(const ZUINT1 *_in, int _length, ZUINT1 *_out) {
      // TODO :
      bool first_round = true;
      int rounds = 0;
-     UINT1 ciphertext[16] = {0};
-     UINT1 input[16] = {0};
-     UINT1 output[16] = {0};
-     UINT1 plaintext[16] = {0};
+     ZUINT1 ciphertext[16] = {0};
+     ZUINT1 input[16] = {0};
+     ZUINT1 output[16] = {0};
+     ZUINT1 plaintext[16] = {0};
      printf("FileSize : %0.0fKB\n", _length / 1024.0f);
      int po_index = 0 ;
      float lastLen = 0.0f;

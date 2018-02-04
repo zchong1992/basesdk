@@ -1,6 +1,12 @@
 #include "global.h"
 using namespace std;
 namespace baseservice{
+#ifdef ZWINDOWS
+	int gettimeofday(timeval* tm,void*)
+	{
+		return 0;
+	}
+#endif
     int set_thread_title(const char* fmt,...)
     {
         char title [16] ={0};
@@ -8,7 +14,11 @@ namespace baseservice{
         va_start(ap, fmt);
         vsnprintf (title, sizeof (title) , fmt, ap);
         va_end (ap);
+#ifdef ZLINUX
        return prctl(PR_SET_NAME,title);
+#else
+		return 0;
+#endif
     }
     void *createthread(createdthread thread,void *mPara)
     {
@@ -51,19 +61,19 @@ namespace baseservice{
 		}
 	}
 
-    UINT8 GetCurTimems()
+    ZUINT8 GetCurTimems()
     {
         timeval tm;
         gettimeofday(&tm,0);
         return (tm.tv_sec*1000+tm.tv_usec/1000);
     }
-    UINT8 GetCurTimeS()
+    ZUINT8 GetCurTimeS()
     {
         timeval tm;
         gettimeofday(&tm,0);
         return (tm.tv_sec);
     }
-    UINT8 GetCurTimeUs()
+    ZUINT8 GetCurTimeUs()
     {
         timeval tm;
         gettimeofday(&tm,0);
@@ -99,7 +109,7 @@ namespace baseservice{
          strftime(strtime,100,"%04Y%02m%02d%02H%02M%02S",timenow);
         timeval mtm;
         gettimeofday(&mtm,0);
-        UINT4 ms=mtm.tv_usec/1000;
+        ZUINT4 ms=mtm.tv_usec/1000;
         char strtimems[10];
         sprintf(strtimems,"%04d",ms);
         strcat(strtime,strtimems);

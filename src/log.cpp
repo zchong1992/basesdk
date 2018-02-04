@@ -1,13 +1,21 @@
 #include "log.h"
-#include "object.h"
 #include "aes.h"
 
 using namespace std;
 
 namespace baseservice{
+	void usleep(int)
+	{
+		return;
+	}
+	znlog* znlog::Instance = 0;
 
-    znlog* znlog::Instance=0;
+#ifdef ZLINUX
     LOCKER znlog::static_log_locker=PTHREAD_MUTEX_INITIALIZER;
+#endif
+#ifdef ZWINDOWS
+	LOCKER znlog::static_log_locker = 0;
+#endif
     
     void znlog::lock_g_locker()
     {
@@ -45,14 +53,14 @@ namespace baseservice{
           const char *plevel="[null]"; 
           switch (level)
           {     
-          case INFO:
+          case ZLOGINFO:
                plevel="[INFO]";
                break;
-          case WARNING:
+          case ZLOGWARNING:
                plevel="[WARNING]";
                break;
-          case ERROR:
-               plevel="[ERROR]";
+          case ZLOGERROR:
+               plevel="[ZLOGERROR]";
                break;
           }
           strcpy(str,plevel);
@@ -116,8 +124,8 @@ namespace baseservice{
     {
         m_is_can_write=0;
         m_file=0;
-        m_cur_level_write=INFO;
-        m_cur_level_print=INFO;
+        m_cur_level_write= ZLOGINFO;
+        m_cur_level_print= ZLOGINFO;
         m_filename[0]=0;
         PTHRAED_INIT(&m_locker);
     }
@@ -129,9 +137,9 @@ namespace baseservice{
     }
     void znlog::set_level(int write,int print)
     {
-        if(write >=ERROR && write <=INFO)
+        if(write >=ZLOGERROR && write <= ZLOGINFO)
             this->m_cur_level_write =write;
-        if(print >=ERROR && print <=INFO)
+        if(print >=ZLOGERROR && print <= ZLOGINFO)
             this->m_cur_level_print =print;
         if(write==0)
             this->m_cur_level_write =0;
@@ -184,40 +192,40 @@ namespace baseservice{
          memcpy(setKey,"zkzndemoandroidg",16);
 
               AESModeOfOperation maes;
-         maes.set_iv((UINT1*)iv);
-         maes.set_key((UINT1*)setKey);
+         maes.set_iv((ZUINT1*)iv);
+         maes.set_key((ZUINT1*)setKey);
          maes.set_mode(MODE_CBC);
          int outlen=0;
           memcpy(buf1,"1234567890\0",11);
-         outlen=maes.Encrypt((UINT1*)buf1,16,(UINT1*)buf2);
-          SYS_LOG(INFO,"send data %s to  log socket\n",buf1);
+         outlen=maes.Encrypt((ZUINT1*)buf1,16,(ZUINT1*)buf2);
+          SYS_LOG(ZLOGINFO,"send data %s to  log socket\n",buf1);
           int ret=send(sock,buf2,16,0);
           if(ret<=0)
           {
-               SYS_LOG(INFO,"send log socket fail\n");
+               SYS_LOG(ZLOGINFO,"send log socket fail\n");
                return 0;
           }
           int recvlen=0;
-         maes.set_iv((UINT1*)iv);
-         maes.set_key((UINT1*)setKey);
+         maes.set_iv((ZUINT1*)iv);
+         maes.set_key((ZUINT1*)setKey);
          maes.set_mode(MODE_CBC);
-         outlen=maes.Decrypt((UINT1*)buf2,16,(UINT1*)buf4);
-          SYS_LOG(INFO,"should decode data %s \n",buf4);
+         outlen=maes.Decrypt((ZUINT1*)buf2,16,(ZUINT1*)buf4);
+          SYS_LOG(ZLOGINFO,"should decode data %s \n",buf4);
           while(recvlen<16)
           {
                ret=recv(sock,buf3+recvlen,16-recvlen,0);
                if(ret<=0)
                {
-                    SYS_LOG(INFO,"recv log socket fail\n");
+                    SYS_LOG(ZLOGINFO,"recv log socket fail\n");
                     return 0;
                }
                recvlen+=ret;
           }
-         maes.set_iv((UINT1*)iv);
-         maes.set_key((UINT1*)getKey);
+         maes.set_iv((ZUINT1*)iv);
+         maes.set_key((ZUINT1*)getKey);
          maes.set_mode(MODE_CBC);
-         outlen=maes.Decrypt((UINT1*)buf3,16,(UINT1*)buf4);
-          SYS_LOG(INFO,"recv data %s to  log socket\n",buf4);
+         outlen=maes.Decrypt((ZUINT1*)buf3,16,(ZUINT1*)buf4);
+          SYS_LOG(ZLOGINFO,"recv data %s to  log socket\n",buf4);
           if(memcmp(buf1,buf4,11)==0)
                return 1;
           return 0;
@@ -225,7 +233,7 @@ namespace baseservice{
     void * znlog::logsockThread(void * Para)
      {
           set_thread_title("logsockThread");
-        SYS_LOG(INFO,"sockThread satart\n");  
+        SYS_LOG(ZLOGINFO,"sockThread satart\n");
           znlog * m_fd=(znlog*)Para;
           os_socket sockSrv = socket( AF_INET , SOCK_STREAM , 0 );
         SOCKADDR_IN addrSrv;
@@ -233,14 +241,14 @@ namespace baseservice{
         addrSrv.sin_addr.s_addr=0;
         addrSrv.sin_port=htons(m_fd->m_port);
         addrSrv.sin_family=AF_INET;
-        if( setsockopt(sockSrv, SOL_SOCKET, SO_REUSEADDR, &flag, len) == -1)  
+        if( setsockopt(sockSrv, SOL_SOCKET, SO_REUSEADDR, (const char*)&flag, len) == -1)  
         {  
-            SYS_LOG(INFO,"setsockopt fail");  
+            SYS_LOG(ZLOGINFO,"setsockopt fail");
             exit(0);  
         }  
         if(bind( sockSrv ,(SOCKADDR*)&addrSrv , sizeof(SOCKADDR) ) !=0)
         {
-            SYS_LOG(ERROR,"bind %d fail\n",m_fd->m_port);
+            SYS_LOG(ZLOGERROR,"bind %d fail\n",m_fd->m_port);
             closesocket(sockSrv);
             exit(0);
         }
@@ -252,14 +260,14 @@ namespace baseservice{
         {
              int tmp_sock=0;
             tmp_sock = accept( sockSrv , (SOCKADDR *)&addrClient , (socklen_t*)&len );
-               SYS_LOG(INFO,"recv a log request \n");
+               SYS_LOG(ZLOGINFO,"recv a log request \n");
                if(checkSocketAvialbe(tmp_sock)==0)
                {
-                    SYS_LOG(INFO,"check log socket fail \n");
+                    SYS_LOG(ZLOGINFO,"check log socket fail \n");
                     closesocket(tmp_sock);
                     continue;
                }
-               SYS_LOG(INFO,"check log socket success\n");
+               SYS_LOG(ZLOGINFO,"check log socket success\n");
              PTHRAED_LOCK(&m_fd->m_locker);
                if(m_fd->m_sock<=0)
                {
@@ -267,7 +275,7 @@ namespace baseservice{
                }
                else
                {
-                    SYS_LOG(WARNING,"may have two client work togetter m_sock<=0 fail %d\n",m_fd->m_sock);
+                    SYS_LOG(ZLOGWARNING,"may have two client work togetter m_sock<=0 fail %d\n",m_fd->m_sock);
                     closesocket(tmp_sock);
                }
                PTHRAED_UNLOCK(&m_fd->m_locker);
@@ -338,11 +346,6 @@ namespace baseservice{
             fwrite(str,len,1,this->m_file);
             fflush(this->m_file);
             string mystr=str;
-            object *m_obj=object::Getobject();
-            if(m_obj!=0)
-            {
-                m_obj->log.setvalue(mystr);
-            }
             PTHRAED_UNLOCK(&this->m_locker);
         }
         if(level !=0 && this->m_cur_level_print >=level)

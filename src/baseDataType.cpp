@@ -58,7 +58,7 @@ namespace  baseservice
 		Realease();
 		if(data==0||width==0||height==0||channels==0)
 		{
-			SYS_LOG(ERROR,"data==%d||width==%d||heigth==%d||channels==%d true\n",
+			SYS_LOG(ZLOGERROR,"data==%d||width==%d||heigth==%d||channels==%d true\n",
 			data,width,height,channels);
 			return ;
 		}
@@ -67,7 +67,7 @@ namespace  baseservice
 		this->data=new unsigned char[widthStep*height];
 		if(!this->data)
 		{
-			SYS_LOG(ERROR,"data=new[%d * %d *%d]  ; fail\n",
+			SYS_LOG(ZLOGERROR,"data=new[%d * %d *%d]  ; fail\n",
 			width,height,widthStep);
 			return ;
 		}

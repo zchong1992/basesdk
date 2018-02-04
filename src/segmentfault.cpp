@@ -70,30 +70,35 @@ namespace baseservice
         };
     void znsegfault_catch::handle()
      {
+#ifdef ZLINUX
          sigset_t signal_mask;
          sigemptyset (&signal_mask);
          sigaddset (&signal_mask, SIGPIPE);
          int rc = pthread_sigmask (SIG_BLOCK, &signal_mask, NULL);
          if (rc != 0)
         {
-              SYS_LOG(INFO,"block sigpipe error\n");
+              SYS_LOG(ZLOGINFO,"block sigpipe ZLOGERROR\n");
          }
+#endif
      }
     void znsegfault_catch::catch_sign(void)
     {
+#ifdef ZLINUX
         handle();
          signal(SIGSEGV, print_seg_frame);     
         signal(SIGINT, print_seg_frame);
         signal(SIGABRT, print_seg_frame);
         signal(SIGPIPE, no_print_seg_frame);
+#endif
     }
     void znsegfault_catch::no_print_seg_frame(int signal)
     {
-         SYS_LOG(ERROR,"receive %s\n",handlesvaule[signal]);
+         SYS_LOG(ZLOGERROR,"receive %s\n",handlesvaule[signal]);
         return ;
     }
     void znsegfault_catch::print_seg_frame(int signal)
     {
+#ifdef ZLINUX
           void *buffer[30] = {0};
           size_t size;
           char **strings = NULL;
@@ -101,22 +106,23 @@ namespace baseservice
 
           size = backtrace(buffer, 30);
           //fprintf(stdout, "Obtained %zd stack frames\n", size);
-        SYS_LOG(ERROR, "Receive %s:\t%zd stack frames\n", handlesvaule[signal],size);
+        SYS_LOG(ZLOGERROR, "Receive %s:\t%zd stack frames\n", handlesvaule[signal],size);
           strings = backtrace_symbols(buffer, size);
           if (strings == NULL)
           {
-               perror("backtrace_symbols.");
+			  SYS_LOG(ZLOGERROR, "backtrace_symbols.");
                //exit(EXIT_FAILURE);
           }
 
           for (i = 0; i < size; i++)
           {
                //fprintf(stdout, "%s\n", strings[i]);
-                SYS_LOG(ERROR, "%s\n", strings[i]);
+                SYS_LOG(ZLOGERROR, "%s\n", strings[i]);
           }
           free(strings);
           strings = NULL;
         exit(0);
+#endif
      }
 
 };

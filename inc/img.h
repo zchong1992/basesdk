@@ -9,7 +9,7 @@ namespace baseservice{
      class zkznImg
     {
     public:
-         static int jpeg2buf(UINT1 *dst,INT4 *buflen,UINT1 * inbuf,INT4 width ,INT4 height,INT4 channels,INT4 quality);
+         static int jpeg2buf(ZUINT1 *dst,ZINT4 *buflen,ZUINT1 * inbuf,ZINT4 width ,ZINT4 height,ZINT4 channels,ZINT4 quality);
         
           static int  createbmpheader(unsigned char *buf,int *length,const int width,const int height,const int channels);
      };

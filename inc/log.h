@@ -8,10 +8,10 @@ namespace baseservice
      
 
      enum level{
-          NOLOG=0,
-          ERROR,
-         WARNING,
-         INFO
+          ZLOGNOLOG=0,
+		  ZLOGERROR,
+		  ZLOGWARNING,
+		  ZLOGINFO
      };
 
      class znlog

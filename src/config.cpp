@@ -193,6 +193,7 @@ namespace baseservice{
             }while(pn!=0);
         }
         SYS_LOG(3,"---------------------------------------------\n");
+		return 0;
     }
     int znconfig::loadfile(const char * filename)
     {

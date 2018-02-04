@@ -18,7 +18,9 @@ int zclibjustcreateDir(const char* Path)
      {
           if (errno == ENOENT)
           {
+#ifdef ZLINUX
                ret = mkdir(Path, 0775);
+#endif
                if (ret < 0)
                {
                     return 0;
@@ -57,6 +59,7 @@ int zclibcreateFatherDir(const char *Path)
           int ret = zclibjustcreateDir(Path);
           return ret;
      }
+	 return ret;
 }
 
 int ZCDIR::createDir(const char *Path)

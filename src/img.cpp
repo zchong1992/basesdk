@@ -5,7 +5,7 @@
 
 namespace baseservice
 {
-     int zkznImg::jpeg2buf(UINT1 *dst,INT4 *buflen,UINT1 * inbuf,INT4 width ,INT4 height,INT4 channels,INT4 quality)
+     int zkznImg::jpeg2buf(ZUINT1 *dst,ZINT4 *buflen,ZUINT1 * inbuf,ZINT4 width ,ZINT4 height,ZINT4 channels,ZINT4 quality)
      {
 #if 0
           struct jpeg_compress_struct cinfo;
