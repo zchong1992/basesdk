@@ -72,7 +72,7 @@ namespace baseservice{
           int use_len=strlen(str);
         va_list args;
         va_start(args,fmt);
-        vsprintf(str+use_len,fmt,args);
+        vsnprintf(str+use_len,2048-use_len-1,fmt,args);
         va_end(args);
           int str_len=strlen(str);
 //          znlogpointer->write(level,timeStr,time_str_len);
