@@ -1,4 +1,5 @@
 #include "global.h"
+#include "log.h"
 using namespace std;
 namespace baseservice{
 #ifdef ZWINDOWS
@@ -168,7 +169,7 @@ namespace baseservice{
      {
           string _t="";
           char buf[30];
-          sprintf(buf,"%d",value);
+          sprintf(buf,"%ld",value);
           _t=buf;
           return _t;
      }
@@ -176,36 +177,10 @@ namespace baseservice{
      {
           string _t="";
           char buf[30];
-          sprintf(buf,"%d",value);
+          sprintf(buf,"%lld",value);
           _t=buf;
           return _t;
      }
-//      void resort(UINT1 * start, UINT1 *end)
-//     {
-//          UINT1 _t;
-//          end--;
-//          while(start<end)
-//          {
-//               _t=*start;
-//               *start=*end;
-//               *end=_t;
-//               start++;
-//               end--;
-//          }
-//     }
-//     void resort(INT1 * start, INT1 *end)
-//     {
-//          INT1 _t;
-//          end--;
-//          while(start<end)
-//          {
-//               _t=*start;
-//               *start=*end;
-//               *end=_t;
-//               start++;
-//               end--;
-//          }
-//     }
      int GetFileSize(FILE *fp)
      {
           int num = 0;
@@ -224,6 +199,38 @@ namespace baseservice{
      {
           PTHRAED_UNLOCK(m_lock);
      }
+
+    int printLine(const char * str,int maxlen)
+    {
+        if(str==0)
+        {
+            for(int i=0;i<maxlen-1;i++)
+            {
+                SYS_LOG_NO_TIME(ZLOGWARNING,"*");
+            }
+            SYS_LOG_NO_TIME(ZLOGWARNING,"*\n");
+            return 0;
+        }
+        int len=strlen(str);
+        if(len+2>maxlen)
+        {
+            SYS_LOG_NO_TIME(ZLOGWARNING,"%s\n",str);
+            return 0;
+        }
+        int blank=(maxlen-len-2)/2;
+        SYS_LOG_NO_TIME(ZLOGWARNING,"*");
+        for(int i=0;i<blank;i++)
+        {
+            SYS_LOG_NO_TIME(ZLOGWARNING," ");
+        }
+        SYS_LOG_NO_TIME(ZLOGWARNING,"%s",str);
+        for(int i=0;i<maxlen-len-2-blank;i++)
+        {
+            SYS_LOG_NO_TIME(ZLOGWARNING," ");
+        }
+        SYS_LOG_NO_TIME(ZLOGWARNING,"*\n");
+        return 0;
+    }
 
 }
 

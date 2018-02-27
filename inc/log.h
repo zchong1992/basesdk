@@ -50,10 +50,16 @@ namespace baseservice
      };
 #if 1 
 
+#if 1
+#define SYS_LOG(type,fmt,...) znlog::SYS_LOG2(type,"[%s:%d]"  fmt,__FUNCTION__,__LINE__,##__VA_ARGS__)
+#define SYS_LOG_NO_TIME znlog::SYS_LOG3
+#define TEMP_LOG(FILE,fmt,...) znlog::TEMPLOG(FILE,"[%s:%d]"  fmt,__FUNCTION__,__LINE__,##__VA_ARGS__)
+#else
 #define SYS_LOG(type,fmt,...) znlog::SYS_LOG2(type,"[%s:%s:%d]"  fmt,__FUNCTION__,__FILE__,__LINE__,##__VA_ARGS__)
 #define SYS_LOG_NO_TIME znlog::SYS_LOG3
 #define TEMP_LOG(FILE,fmt,...) znlog::TEMPLOG(FILE,"[%s:%s:%d]"  fmt,__FUNCTION__,__FILE__,__LINE__,##__VA_ARGS__)
 
+#endif
 #define SYS_LOG_TIMER(TIMER,time,type,fmt,...) do {     \
     static TIME_T __static_sad##TIMER;                  \
     TIME_T &lastTime= __static_sad##TIMER;              \

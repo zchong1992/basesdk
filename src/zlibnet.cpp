@@ -108,8 +108,7 @@ namespace  baseservice
         addr.ip=inet_addr(ip);
         addr.port=ntohs(atoi(port));
         return bind(addr);
-    }
-        
+    }  
     int tcpServer::bind(const char *ip,unsigned short port)  
     {
         zlibNetAddr addr;
@@ -119,9 +118,11 @@ namespace  baseservice
     }
     int tcpServer::release() 
     {
+        if(fd!=0)
+            close(fd);
+        fd=0;
         return 0;
     }
-        
     int tcpServer::listen(int maxNum)
     {
         return ::listen(fd,maxNum);
@@ -136,7 +137,6 @@ namespace  baseservice
         clientAddr->port=addrSrv.sin_port;
         return ret;
 #endif
-          
 #ifdef ZWINDOWS
         SOCKADDR_IN addrSrv;
         int size;
@@ -145,8 +145,11 @@ namespace  baseservice
         clientAddr->port=addrSrv.sin_port;
         return ret;
 #endif
-
     }
-
+    int tcpServer::accept()
+    {        
+        zlibNetAddr  clientAddr;
+        return accept(&clientAddr);
+    }
 };
 

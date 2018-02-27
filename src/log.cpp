@@ -307,12 +307,12 @@ namespace baseservice{
                          
             }
                int curlen=ftell(this->m_file);
-               const int constfileSize=500*(1<<20);
+               const int constfileSize=50*(1<<20);
                //printf("curlen log size %d\n",curlen);
                if(curlen>constfileSize)
                {
                     PTHRAED_LOCK(&m_locker_change_file);
-                    const int bufferSize=1<<20;
+                    const int bufferSize=10<<20;
                     int curlen=ftell(this->m_file);
                     if(curlen>constfileSize)
                     {
@@ -333,7 +333,7 @@ namespace baseservice{
                               }
                          }
                          fclose(this->m_file);
-                      this->m_file=fopen(this->m_filename,"w");
+                         this->m_file=fopen(this->m_filename,"w");
                          if(buf)
                          {
                               fwrite(buf,1,bufferSize,this->m_file);

@@ -1,8 +1,8 @@
 
 
 /******************************************
-*   author: zc
-*   date:  2018/2/26
+*   author: zc							  *	
+*   date:  2018/2/26					  *
 *	此文件为网络模块的简洁开发工具类，    *
 *   快速开发时，一些基础的重复性功能设置  *
 *******************************************/
@@ -43,6 +43,7 @@ namespace baseservice
         int release();
         int listen(int maxNum);
         int accept(zlibNetAddr *);  
+        int accept();  
         int fd;
     };
     class udpSocket
