@@ -14,6 +14,7 @@
 #include "./inc/pointer.h"
 #include "./inc/dir.h"
 #include "./inc/baseDataType.h"
+#include "./inc/zlibnet.h"
 
 namespace baseservice
 {

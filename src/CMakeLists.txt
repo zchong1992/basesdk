@@ -12,6 +12,7 @@ set(SRC aes.cpp
 	img.cpp
 	libbaseservice.cpp
 	log.cpp
+	zlibnet.cpp
 	segmentfault.cpp)
 set(INC 
 	../inc/aes.h
@@ -24,5 +25,6 @@ set(INC
 	../inc/log.h
 	../inc/segmentfault.h
 	../inc/pointer.h
+	../inc/zlibnet.h
 	../libbaseservice.h)
 ADD_LIBRARY(baseservice STATIC ${SRC} ${INC})  

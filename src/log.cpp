@@ -4,7 +4,7 @@
 using namespace std;
 
 namespace baseservice{
-	void usleep(int)
+	static void usleep(int)
 	{
 		return;
 	}

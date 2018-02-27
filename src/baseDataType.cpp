@@ -4,7 +4,7 @@
 #include "string.h"
 #include "log.h"
 using namespace std;
-namespace  baseservice
+namespace baseservice
 {
 	
     baseKV_s::baseKV_s()
