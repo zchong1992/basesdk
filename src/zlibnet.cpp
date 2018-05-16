@@ -1,7 +1,6 @@
 
 
 #include "zlibnet.h"
-#include "global.h"
 #include "log.h"
 namespace  baseservice
 {
@@ -21,7 +20,11 @@ namespace  baseservice
     int tcpClient::release()
     {
         if(fd!=0)
-            close(fd);
+#ifdef  ZWINDOWS
+			::closesocket(fd);
+#else
+			::close(fd);
+#endif
         fd=0;
         return 0;
     }
@@ -32,7 +35,7 @@ namespace  baseservice
 		serAddr.sin_family = AF_INET;
 		serAddr.sin_port = addr.port;
 		serAddr.sin_addr.S_un.S_addr = addr.ip;
-        return connect(fd, (sockaddr *)&serAddr, sizeof(serAddr)) ;
+        return ::connect(fd, (sockaddr *)&serAddr, sizeof(serAddr)) ;
     #endif
     #ifdef ZLINUX
         struct sockaddr_in serAddr;
@@ -59,11 +62,11 @@ namespace  baseservice
     int tcpClient::send(const void * buf,int size,int flag)
     {
         
-        return ::send(fd,buf,size,flag);
+        return ::send(fd,(char*)buf,size,flag);
     }
     int tcpClient::recv(void * buf,int bufSize,int flag)
     {
-        return ::recv(fd,buf,bufSize,flag);
+        return ::recv(fd, (char*)buf,bufSize,flag);
     }
     tcpServer::tcpServer()
     {
@@ -118,8 +121,12 @@ namespace  baseservice
     }
     int tcpServer::release() 
     {
-        if(fd!=0)
-            close(fd);
+		if (fd != 0)
+#ifdef  ZWINDOWS
+			::closesocket(fd);
+#else
+            ::close(fd);
+#endif
         fd=0;
         return 0;
     }

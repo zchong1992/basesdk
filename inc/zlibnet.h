@@ -10,6 +10,7 @@
 
 #ifndef __ZLIBNET_H__
 #define __ZLIBNET_H__
+
 #include "global.h"
 namespace baseservice
 {

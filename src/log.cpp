@@ -4,10 +4,13 @@
 using namespace std;
 
 namespace baseservice{
-	static void usleep(int)
+#ifdef ZWINDOWS
+	void usleep(int time)
 	{
+		Sleep(time / 1000);
 		return;
 	}
+#endif
 	znlog* znlog::Instance = 0;
 
 #ifdef ZLINUX

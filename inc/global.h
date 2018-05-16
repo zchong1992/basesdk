@@ -107,35 +107,28 @@ typedef pthread_mutex_t LOCKER;
 #endif
 
 
-
-namespace baseservice
-{
-    
 #define SOCKET_ERROR            (-1)
 #define THIS_VERSION "2.0.7"
 #ifdef WIN32
 #include <Winsock2.h>
-#include <wingdi.h>
 #include <windows.h>
-    
 #define   socklen_t int
-
 typedef SOCKET os_socket;
 
-    
+
 #else
 #include "global.h"
 #define Sleep(a) usleep(a*1000)
 #define closesocket close
 #define SOCKADDR sockaddr
-    
+
 #define BI_RGB        0L
 #define BI_RLE8       1L
 #define BI_RLE4       2L
 #define BI_BITFIELDS  3L
 #define BI_JPEG       4L
 #define BI_PNG        5L
-    
+
 typedef unsigned int  os_socket;
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef unsigned long DWORD;
@@ -144,6 +137,10 @@ typedef unsigned short WORD;
 typedef unsigned char UCHAR;
 #endif
 
+
+
+namespace baseservice
+{
 
 #pragma pack(1)
 typedef struct mytagBITMAPINFOHEADER{
@@ -271,6 +268,9 @@ void cutOffTailOf_R_N_Space(char *str,int len);
 
 void *createthread(createdthread thread,void *mPara);
 int set_thread_title(const char* fmt,...);
+#ifdef ZWINDOWS
+void usleep(int);
+#endif
 class autolock
 {
 public:

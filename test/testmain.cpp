@@ -2,6 +2,9 @@
 #include "string.h"
 using namespace std;
 using namespace baseservice;
+#ifdef ZWINDOWS
+#pragma comment(lib,"ws2_32.lib")
+#endif
 void* responseClient(void * para)
 {
     tcpClient client;
@@ -68,6 +71,7 @@ END:
     if(msgdata)
         free(msgdata);
     msgdata=0;
+	return 0;
     
 }
 void* createServer(void* a)
