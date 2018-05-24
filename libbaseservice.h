@@ -20,7 +20,7 @@ namespace baseservice
 {
 
 #ifdef WIN32
-#define TIME_T time_t
+#define TIME_T clock_t
 #define GET_TIME(a) (*a)=clock()
 #define CAL_TIME(a,b) ((*a)-(*b))
 #else
