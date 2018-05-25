@@ -1,18 +1,19 @@
 #include "base64.h"
 
+
 namespace baseservice{
 
-static char * base64table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-static char base64decodebtable[256] = { 0 };
+static ZUINT1 * base64table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static ZUINT1 base64decodebtable[256] = { 0 };
 
-char* byte3to4(char out[4], char pin[3], int length)
+ZUINT1* byte3to4(ZUINT1 out[4], ZUINT1 pin[3], int length)
 {
-     char in[3] = { 0 };
+     ZUINT1 in[3] = { 0 };
      int  i = 0;
      for (i = 0; i < length; i++)
           in[i] = pin[i];
-     out[0] = in[0] >> 2;
-     out[1] =(((in[0] << 6) | (in[1] >> 2))>>2)&0x3f;
+     out[0] = (in[0] >> 2) & 0x3f;
+     out[1] =(((in[0] << 6) | (in[1] >> 2))>>2) & 0x3f;
      out[2]= (((in[1] << 4) | (in[2] >> 4))>>2) & 0x3f;
      out[3] =in[2] & 0x3f;
 
@@ -44,10 +45,10 @@ void inittable()
      }
      base64decodebtable['='] = 0;
 }
-unsigned char* byte4to3(unsigned char out[3], unsigned char pin[4])
+ZUINT1* byte4to3(ZUINT1 out[3], ZUINT1 pin[4])
 {
-     unsigned char *in = pin;
-     unsigned char min[4];
+     ZUINT1 *in = pin;
+     ZUINT1 min[4];
      int  i = 0;
      min[0] = base64decodebtable[in[0]];
      min[1] = base64decodebtable[in[1]];
@@ -62,12 +63,12 @@ unsigned char* byte4to3(unsigned char out[3], unsigned char pin[4])
 
 }
 
-int base64encode(char *out, char *in, int length)
+int base64encode(void *out, void *in, int length)
 {
      int i = 0;
-     char *inp, *outp;
-     inp = in;
-     outp = out;
+     ZUINT1 *inp, *outp;
+     inp = (ZUINT1*)in;
+     outp = (ZUINT1*)out;
      int len = 0;
      for (i = 0; i + 3 < length; i += 3)
      {
@@ -81,18 +82,18 @@ int base64encode(char *out, char *in, int length)
      return  len;
 }
 
-int base64decode(char *out, char *in,int length)
+int base64decode(void *out, void *in,int length)
 {
      inittable();
      int i = 0;
-     char *inp, *outp;
-     inp = in;
-     outp = out;
+     ZUINT1 *inp, *outp;
+     inp = (ZUINT1*)in;
+     outp = (ZUINT1*)out;
 
      int len = 0;
      for (i = 0; i < length; i += 4)
      {
-          byte4to3((unsigned char*)outp, (unsigned char*)inp);
+          byte4to3((ZUINT1*)outp, (ZUINT1*)inp);
           inp += 4;
           outp += 3;
           len += 3;
