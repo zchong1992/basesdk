@@ -3,7 +3,7 @@
 
 namespace baseservice{
 
-static ZUINT1 * base64table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static ZUINT1 * base64table =(ZUINT1*) "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static ZUINT1 base64decodebtable[256] = { 0 };
 
 ZUINT1* byte3to4(ZUINT1 out[4], ZUINT1 pin[3], int length)
@@ -37,7 +37,7 @@ ZUINT1* byte3to4(ZUINT1 out[4], ZUINT1 pin[3], int length)
 }
 void inittable()
 {
-     int length = strlen(base64table);
+     int length = strlen((char*)base64table);
      int i;
      for (i = 0; i < 64; i++)
      {
