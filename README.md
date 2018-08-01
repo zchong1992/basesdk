@@ -1,10 +1,11 @@
 <html>
 <body>
-此库为window和linux下通用库，用于快速开发，集成简单常用功能<br/>
-网络socket创建<br/>
-bmp文件读写<br/>
-log文件使用<br/>
-base64转码<br/>
-aes加解密<br/>
+<p><h1>此库为window和linux下通用库，用于快速开发，集成简单常用功能</h1></p><br/>
+<p><h3>网络socket创建</h3></p><br/>
+<p><h3>bmp文件读写</h3></p><br/>
+<p><h3>log文件使用</h3></p><br/>
+<p><h3>base64转码</h3></p><br/>
+<p><h3>aes加解密</h3></p><br/>
+<p><h3>conf配置文件读写</h3></p><br/>
 </body>
 </html>
