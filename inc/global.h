@@ -168,7 +168,7 @@ typedef struct mytagBITMAP_FILE{
       myBITMAPFILEHEADER header;
       myBITMAPINFOHEADER infoheader;
       //PALETTEENTRY palette[256];
-      UCHAR buffer[0];   //UCHAR ´óĞ¡1×Ö½Ú(Í¬BYTE), ÔÚVC6ÏÂ
+      UCHAR buffer[0];   //UCHAR å¤§å°1å­—èŠ‚(åŒBYTE), åœ¨VC6ä¸‹
  
 } BITMAP_FILE;
 typedef struct myhead{
@@ -268,6 +268,7 @@ void cutOffTailOf_R_N_Space(char *str,int len);
 
 void *createthread(createdthread thread,void *mPara);
 int set_thread_title(const char* fmt,...);
+long int gettid();
 #ifdef ZWINDOWS
 void usleep(int);
 #endif

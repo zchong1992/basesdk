@@ -18,18 +18,16 @@ namespace baseservice
     {
     public:
         int loadfile(const char * finename);
-        static znconfig* Getznconfig();
         int insertData(const char *,const char*);
         int print();
         void save(const char *path);
         int add(const char *key,const char* vlaue);
         int del(const char *key);
         const char * Getvalue(const char *key);
-    private:
-        zkv * m_zkv;
         znconfig();
         ~znconfig();
-        static znconfig* m_znconfig;
+    private:
+        zkv * m_zkv;
     };
     
 
