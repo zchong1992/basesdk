@@ -1,9 +1,9 @@
 #include "base64.h"
-
+#include "global.h"
 namespace baseservice
 {
 
-static unsigned char *base64table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static unsigned char *base64table = (ZUINT1*)"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static unsigned char base64decodebtable[256] = {0};
 
 unsigned char *byte3to4(unsigned char out[4], unsigned char pin[3], int length) {
@@ -31,7 +31,7 @@ unsigned char *byte3to4(unsigned char out[4], unsigned char pin[3], int length) 
     return out;
 }
 void inittable() {
-    int length = strlen(base64table);
+    int length = strlen((ZINT1*)base64table);
     int i;
     for (i = 0; i < 64; i++) {
         base64decodebtable[base64table[i]] = i;
