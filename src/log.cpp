@@ -21,13 +21,13 @@ LOCKER znlog::static_log_locker = 0;
 #endif
 
 void znlog::lock_g_locker() {
-    PTHRAED_LOCK(&static_log_locker);
+    PTHREAD_LOCK(&static_log_locker);
 }
 void znlog::init_g_locker() {
     PTHRAED_INIT(&static_log_locker);
 }
 void znlog::unlock_g_locker() {
-    PTHRAED_UNLOCK(&static_log_locker);
+    PTHREAD_UNLOCK(&static_log_locker);
 }
 
 znlog *znlog::getInstance() {
@@ -140,10 +140,10 @@ void znlog::SockSendLog(const char *buf, int len) {
     if (m_sock > 0) {
         int ret = send(m_sock, buf, len, 0);
         if (ret < 1) {
-            PTHRAED_LOCK(&m_locker);
+            PTHREAD_LOCK(&m_locker);
             closesocket(m_sock);
             m_sock = -1;
-            PTHRAED_UNLOCK(&m_locker);
+            PTHREAD_UNLOCK(&m_locker);
         }
     }
 }
@@ -241,14 +241,14 @@ void *znlog::logsockThread(void *Para) {
             continue;
         }
         SYS_LOG(ZLOGINFO, "check log socket success\n");
-        PTHRAED_LOCK(&m_fd->m_locker);
+        PTHREAD_LOCK(&m_fd->m_locker);
         if (m_fd->m_sock <= 0) {
             m_fd->m_sock = tmp_sock;
         } else {
             SYS_LOG(ZLOGWARNING, "may have two client work togetter m_sock<=0 fail %d\n", m_fd->m_sock);
             closesocket(tmp_sock);
         }
-        PTHRAED_UNLOCK(&m_fd->m_locker);
+        PTHREAD_UNLOCK(&m_fd->m_locker);
         while (m_fd->m_sock > 0) {
             usleep(100);
         }
@@ -259,12 +259,12 @@ int znlog::write(const int level, const char *str, const int len) {
     if (str == 0)
         return -1;
     if (level != 0 && this->m_cur_level_write >= level) {
-        PTHRAED_LOCK(&this->m_locker);
+        PTHREAD_LOCK(&this->m_locker);
         if (this->m_file == 0) {
             this->m_file = fopen(this->m_filename, "a+");
             if (this->m_file == 0) {
                 ret = -2;
-                PTHRAED_UNLOCK(&this->m_locker);
+                PTHREAD_UNLOCK(&this->m_locker);
                 goto WRITEEND;
             }
         }
@@ -272,7 +272,7 @@ int znlog::write(const int level, const char *str, const int len) {
         const int constfileSize = 50 * (1 << 20);
         //printf("curlen log size %d\n",curlen);
         if (curlen > constfileSize) {
-            PTHRAED_LOCK(&m_locker_change_file);
+            PTHREAD_LOCK(&m_locker_change_file);
             const int bufferSize = 10 << 20;
             int curlen = ftell(this->m_file);
             if (curlen > constfileSize) {
@@ -296,12 +296,12 @@ int znlog::write(const int level, const char *str, const int len) {
                 }
                 buf = 0;
             }
-            PTHRAED_UNLOCK(&m_locker_change_file);
+            PTHREAD_UNLOCK(&m_locker_change_file);
         }
         fwrite(str, len, 1, this->m_file);
         fflush(this->m_file);
         string mystr = str;
-        PTHRAED_UNLOCK(&this->m_locker);
+        PTHREAD_UNLOCK(&this->m_locker);
     }
     if (level != 0 && this->m_cur_level_print >= level) {
         printf("%s", str);

@@ -9,23 +9,15 @@
 #define  ZLINUX
 #endif
 
-
-
-
-//
 #ifdef ZWINDOWS
 
 #include <errno.h>
 #include <fcntl.h>
 #include <iostream>
-
-
 #include <string>
-
 #include <stdio.h>  
 #include <string.h>  
 #include <stdlib.h>  
-
 #include <sys/types.h>  
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -35,17 +27,15 @@
 #include <string.h>
 #include <signal.h>
 #include <cassert>
-
 #include <stdarg.h>  
 #include <time.h>   
-
 #include <map>
 #include <list>
 #include <vector>
 typedef int LOCKER;
-#define PTHRAED_LOCK(locker) 
+#define PTHREAD_LOCK(locker) 
 #define PTHRAED_INIT(locker)     
-#define PTHRAED_UNLOCK(locker)      
+#define PTHREAD_UNLOCK(locker)      
 #define PTHRAED_TRYLOCK(locker) 
 #endif
 #ifdef ZLINUX
@@ -57,15 +47,11 @@ typedef int LOCKER;
 #include <iostream>
 #include <netinet/in.h>
 #include <netinet/ip.h>
-
 #include <pthread.h>  
-
 #include <string>
-
 #include <stdio.h>  
 #include <string.h>  
 #include <stdlib.h>  
-
 #include <sys/types.h>  
 #include <sys/prctl.h>
 #include <sys/ipc.h>
@@ -80,35 +66,23 @@ typedef int LOCKER;
 #include <string.h>
 #include <signal.h>
 #include <cassert>
-
 #include <stdarg.h>  
-#include <time.h>   
-
-#include <unistd.h>  
+#include <time.h>
+#include <unistd.h>
 #include <map>
 #include <list>
 #include <vector>
-
 typedef pthread_mutex_t LOCKER;
 
-#if 0
-#define PTHRAED_LOCK(locker) 
-#define PTHRAED_INIT(locker)     
-#define PTHRAED_UNLOCK(locker)      
-#define PTHRAED_TRYLOCK(locker) 
-#else
 #define PTHRAED_INIT(locker)        pthread_mutex_init(locker,NULL)
-#define PTHRAED_LOCK(locker)           pthread_mutex_lock(locker)
-#define PTHRAED_UNLOCK(locker)           pthread_mutex_unlock(locker)
-#define PTHRAED_TRYLOCK(locker)      pthread_mutex_trylock(locker)
-#endif
-
+#define PTHREAD_LOCK(locker)        pthread_mutex_lock(locker)
+#define PTHREAD_UNLOCK(locker)      pthread_mutex_unlock(locker)
+#define PTHRAED_TRYLOCK(locker)     pthread_mutex_trylock(locker)
 
 #endif
-
 
 #define SOCKET_ERROR            (-1)
-#define THIS_VERSION "2.0.7"
+#define THIS_VERSION "2.0.9"
 #ifdef WIN32
 #include <Winsock2.h>
 #include <windows.h>

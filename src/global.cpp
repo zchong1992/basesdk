@@ -164,10 +164,10 @@ int GetFileSize(FILE *fp) {
 }
 autolock::autolock(LOCKER *mlock) {
     m_lock = mlock;
-    PTHRAED_LOCK(m_lock);
+    PTHREAD_LOCK(m_lock);
 }
 autolock::~autolock() {
-    PTHRAED_UNLOCK(m_lock);
+    PTHREAD_UNLOCK(m_lock);
 }
 
 int printLine(const char *str, int maxlen) {

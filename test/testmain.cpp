@@ -79,20 +79,23 @@ void* createServer(void* a)
     tcpServer ts;
     int ret=ts.init();
     if(ret<0)
-    {
+    {
+
         SYS_LOG(ZLOGINFO,"server init fail\n");
         return 0;
     }
     ret=ts.bind("0.0.0.0","8181");
     if(ret!=0)
-    {
+    {
+
         SYS_LOG(ZLOGINFO,"server bind fail ret=%d\n",ret);
         return 0;
     }
     SYS_LOG(ZLOGINFO,"server bind success\n");
     ret=ts.listen(10);;
     if(ret!=0)
-    {
+    {
+
         SYS_LOG(ZLOGINFO,"server listen fail ret=%d\n",ret);
         return 0;
     }
@@ -102,7 +105,8 @@ void* createServer(void* a)
         int *clientSock=(int*)malloc(sizeof(int));
         *clientSock=ts.accept(&client);
         if(*clientSock<=0)
-        {
+        {
+
             SYS_LOG(ZLOGINFO,"server listen fail ret=%d\n",*clientSock);
             return 0;
         }
@@ -113,6 +117,7 @@ void* createServer(void* a)
 }
 int main(int argc ,char * argv[])
 {
+    lib_init();
 	znlog *zl=znlog::getInstance();
     zl->set_level(ZLOGINFO,ZLOGINFO);
     zl->set_log_file("proc.log");
@@ -121,6 +126,7 @@ int main(int argc ,char * argv[])
     while(1)
     {
         printf(".");
+        usleep(1000*100);
         fflush(stdout);
     }
 	return 0;

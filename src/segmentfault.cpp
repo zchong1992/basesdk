@@ -1,13 +1,20 @@
 #include "log.h"
 #include "segmentfault.h"
 #include <sys/types.h>
+#ifndef  WIN32
 #include <sys/syscall.h>
-
+#else
+typedef int pid_t;
+#endif
 namespace baseservice
 {
 
 long int gettid() {
+#ifndef  WIN32
     return syscall(224);
+#else
+	return 0;
+#endif
 }
 char znsegfault_catch::handlesvaule[100][20] = {
     "NOSIGNAL",
