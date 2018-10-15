@@ -1,11 +1,12 @@
 #include "config.h"
+#include "log.h"
 namespace baseservice
 {
 
 #if 0
 #define CONFIGLOG printf
 #else
-#define CONFIGLOG(...)
+#define CONFIGLOG(...) SYS_LOG(ZLOGINFO,##__VA_ARGS__)
 #endif
 char *strdb(char *str) {
     if (str == 0)
@@ -15,7 +16,7 @@ char *strdb(char *str) {
     int hask = 0;
     a = b = str;
     for (; b < str + len; b++) {
-        if (*b == ' ') {
+        if (*b == ' '||*b=='.'||*b==','||*b=='.') {
             continue;
         } else if (*b == '#' || *b == '\r' || *b == '\n') {
             *b = 0;

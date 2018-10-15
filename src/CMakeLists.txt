@@ -28,8 +28,8 @@ set(INC
 	../inc/pointer.h
 	../inc/zlibnet.h
 	../libbaseservice.h)
-set(outPutDir ${PROJECT_BINARY_DIR})
-#set(outPutDir ${PROJECT_SOURCE_DIR})
+#set(outPutDir ${PROJECT_BINARY_DIR})
+set(outPutDir ${PROJECT_SOURCE_DIR})
 MESSAGE(STATUS "Project Directory: ${outPutDir}") 
 ADD_LIBRARY(baseservice STATIC ${SRC} ${INC})  
 
