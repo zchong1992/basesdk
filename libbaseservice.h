@@ -15,7 +15,8 @@
 #include "./inc/dir.h"
 #include "./inc/baseDataType.h"
 #include "./inc/zlibnet.h"
-
+#include "./inc/cThread.h"
+#include "./inc/msgTransport.h"
 namespace baseservice
 {
 

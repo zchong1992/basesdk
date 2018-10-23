@@ -14,24 +14,31 @@ namespace baseservice
         VAILD_LEN,
         VAILD_DATA,
         VAILD_MAGIC,
+        VAILD_BUFFER,
         VAILD_ALLOC_FAIL,
         VAILD_DUP_TYPE,
         VAILD_OTHER
         };
         public:
+            static int writeHeader(void *buf, int size, char magic[],unsigned int type, unsigned int DataLen);
+            static int readHeader(void *buf, int size, char magic[],unsigned int &type, unsigned int &DataLen);
+            Message();
+            virtual ~Message();
             void *getData();
             int getLen();
             int getType();
             int setData2Buffer(void *buf,int bufLen);
-            int setData(void *data,int len);
-            int setType();
-            int setMagic();
+            int getDataFromBuffer(void *buf,int bufLen);
+            int setType(int type);
+            int setMagic(char magic[4]);
+            void release();
         private:
-            void *ptr;
-            int len;
-            int type;
-            char magic[4];
-
+            int setData(void *data,int len);
+            void *mPtr;
+            int mLen;
+            int mType;
+            char mMagic[4];
+            LOCKER mLocker;
     };
     class MessageWorker
     {
