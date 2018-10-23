@@ -1,11 +1,6 @@
 #include "log.h"
 #include "segmentfault.h"
-#include <sys/types.h>
-#ifndef  WIN32
-#include <sys/syscall.h>
-#else
-typedef int pid_t;
-#endif
+
 namespace baseservice
 {
 

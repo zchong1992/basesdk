@@ -10,7 +10,6 @@
 #endif
 
 #ifdef ZWINDOWS
-
 #include <errno.h>
 #include <fcntl.h>
 #include <iostream>
@@ -39,6 +38,9 @@ typedef int LOCKER;
 #define PTHRAED_TRYLOCK(locker) 
 #endif
 #ifdef ZLINUX
+
+#include <sys/types.h>
+#include <sys/syscall.h>
 #include <arpa/inet.h> 
 #include <dirent.h> 
 #include <errno.h>
@@ -72,6 +74,7 @@ typedef int LOCKER;
 #include <map>
 #include <list>
 #include <vector>
+typedef int pid_t;
 typedef pthread_mutex_t LOCKER;
 
 #define PTHRAED_INIT(locker)        pthread_mutex_init(locker,NULL)
@@ -91,7 +94,6 @@ typedef SOCKET os_socket;
 
 
 #else
-#include "global.h"
 #define Sleep(a) usleep(a*1000)
 #define closesocket close
 #define SOCKADDR sockaddr

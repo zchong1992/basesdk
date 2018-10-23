@@ -1,5 +1,5 @@
 /*
-autohor : zhengchong@tj.ia.ac.cn
+autohor : zhengchong_china@outlook.com
 time 2017/11/20 
 I define smoe base Data type at here and every can add more Data type.but i wish 
 that we all working at the same identify mentality name rule.

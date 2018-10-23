@@ -1,7 +1,4 @@
 #include "baseDataType.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "string.h"
 #include "log.h"
 using namespace std;
 namespace baseservice
@@ -12,7 +9,7 @@ baseKV_s::baseKV_s() {
 }
 baseKV_s::~baseKV_s() {
 	if (data)
-		delete data;
+		delete (char*)data;
 }
 
 memKV_s::memKV_s() {
@@ -20,14 +17,14 @@ memKV_s::memKV_s() {
 }
 memKV_s::~memKV_s() {
 	if (buf)
-		delete buf;
+		delete  (char*)buf;
 }
 baseImg_s::baseImg_s() {
 	memset(this, 0, sizeof(struct baseImg_s));
 }
 baseImg_s::~baseImg_s() {
 	if (data)
-		delete data;
+		delete  (char*)data;
 }
 
 baseImg_s::baseImg_s(const struct baseImg_s &A) {

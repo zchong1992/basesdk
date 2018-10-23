@@ -6,7 +6,8 @@
 #ifndef __AES_H__
 #define __AES_H__
 
-#include "libbaseservice.h"
+#include "global.h"
+
 namespace baseservice
 {
 class AES  
