@@ -67,9 +67,9 @@ class MessageReader
     int getDataFromBuffer(const void *buf, int bufLen);
     void release();
     typedef std::vector<Message *> MessageQueue;
+    MessageQueue mMQ;
 
   private:
-    MessageQueue mMQ;
 };
 class MessageWriter
 {
