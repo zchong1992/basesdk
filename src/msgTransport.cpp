@@ -52,7 +52,7 @@ int Message::writeHeader(void *buf, int size, char magic[],
     return MESSAGE_HEAD_LEN;
 }
 
-int Message::readHeader(void *buf, int size, char magic[],
+int Message::readHeader(const void *buf, int size, char magic[],
                         unsigned int &type, unsigned int &dataLen)
 {
     if (buf == 0 || size < MESSAGE_HEAD_LEN)
@@ -76,6 +76,13 @@ int Message::getType()
 {
     return mType;
 }
+string Message::getMagic()
+{
+    char buf[5] = {0};
+    memcpy(buf, mMagic, 4);
+    string str = buf;
+    return str;
+}
 int Message::setData2Buffer(void *buf, int bufLen)
 {
     PTHREAD_LOCK(&mLocker);
@@ -94,9 +101,9 @@ int Message::setData2Buffer(void *buf, int bufLen)
     writeHeader(buf, bufLen, mMagic, mType, mLen);
     memcpy((char *)buf + MESSAGE_HEAD_LEN, mPtr, mLen);
     PTHREAD_UNLOCK(&mLocker);
-    return mLen + MESSAGE_HEAD_LEN;
+    return MESSAGE_HEAD_LEN + mLen;
 }
-int Message::getDataFromBuffer(void *buf, int bufLen)
+int Message::getDataFromBuffer(const void *buf, int bufLen)
 {
     if (bufLen < MESSAGE_HEAD_LEN)
     {
@@ -114,13 +121,13 @@ int Message::getDataFromBuffer(void *buf, int bufLen)
         return VAILD_LEN;
     memcpy(mMagic, magic, 4);
     mType = type;
-    int ret = setData(buf + MESSAGE_HEAD_LEN, datalen);
+    int ret = setData(((char *)buf) + MESSAGE_HEAD_LEN, datalen);
     if (ret >= 0)
         return MESSAGE_HEAD_LEN + mLen;
     else
         return ret;
 }
-int Message::setData(void *data, int len)
+int Message::setData(const void *data, int len)
 {
     if (data == 0)
         return VAILD_DATA;
@@ -135,22 +142,23 @@ int Message::setData(void *data, int len)
     }
     if (mPtr == 0 && mLen == 0)
     {
-        mPtr = malloc(len);
+        mPtr = malloc(len + 1);
         if (mPtr == 0)
         {
             return VAILD_ALLOC_FAIL;
         }
+        memset(mPtr, 0, len + 1);
     }
     mLen = len;
     memcpy(mPtr, data, len);
-    return mLen;
+    return SUCCESS;
 }
 int Message::setType(int type)
 {
     mType = type;
     return SUCCESS;
 }
-int Message::setMagic(char magic[4])
+int Message::setMagic(const char magic[4])
 {
     memcpy(mMagic, magic, 4);
     return SUCCESS;

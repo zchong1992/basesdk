@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.5)
 project(baseservice)
 
 add_definitions(-std=c++11)
+add_definitions(-g -O0)
 set(incPath . .. ../inc)
 INCLUDE_DIRECTORIES( ${incPath})
 set(SRC aes.cpp 

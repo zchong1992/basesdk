@@ -3,6 +3,8 @@ project(testLib)
 
 INCLUDE_DIRECTORIES( ..)
 set(src testmain.cpp)
+
+add_definitions(-g -O0)
 add_executable(testLib ${src})
 target_link_libraries(testLib baseservice)
 

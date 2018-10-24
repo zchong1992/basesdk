@@ -1,5 +1,5 @@
 MACRO = DEBUGALL
-CFLAGS+= -g -O2  -fPIC  -w -rdynamic  -Wall -Wunused -W -D$(MACRO)
+CFLAGS+= -g -O2  -fPIC  -w -rdynamic  -Wall -Wunused -std=c++11 -W -D$(MACRO)
 SOURCES = $(wildcard */*.cpp)
 OBJS := $(patsubst %.cpp, %.o,$(SOURCES))
 #MYOBJS :=$(notdir, $(OBJS))

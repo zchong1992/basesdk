@@ -8,6 +8,7 @@ namespace baseservice
 {
     class Message
     {
+public:
     enum {
         SUCCESS=0,
         VAILD_TYPE=-999,
@@ -21,19 +22,20 @@ namespace baseservice
         };
         public:
             static int writeHeader(void *buf, int size, char magic[],unsigned int type, unsigned int DataLen);
-            static int readHeader(void *buf, int size, char magic[],unsigned int &type, unsigned int &DataLen);
+            static int readHeader(const void *buf, int size, char magic[],unsigned int &type, unsigned int &DataLen);
             Message();
             virtual ~Message();
             void *getData();
             int getLen();
             int getType();
             int setData2Buffer(void *buf,int bufLen);
-            int getDataFromBuffer(void *buf,int bufLen);
+            int getDataFromBuffer(const void *buf,int bufLen);
             int setType(int type);
-            int setMagic(char magic[4]);
+            int setMagic(const char magic[4]);
+            std::string getMagic();
             void release();
+            int setData(const void *data,int len);
         private:
-            int setData(void *data,int len);
             void *mPtr;
             int mLen;
             int mType;

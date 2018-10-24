@@ -115,19 +115,89 @@ void* createServer(void* a)
         usleep(1000);
     }
 }
+int InitLog()
+{
+    
+	znlog *zl=znlog::getInstance();
+    zl->set_level(ZLOGINFO,ZLOGINFO);
+    zl->set_log_file("test.log");
+}
+int TestMsg()
+{
+    Message msg;
+    char buf[1024];
+    sprintf(buf,"1231231123");
+    int ret=0;
+    ret=msg.setData(buf,strlen(buf));
+    if(ret!=Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+    ret=msg.setType(1000);
+    
+    if(ret!=Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+    ret=msg.setMagic("IRST");
+    if(ret!=Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+    char buf2[1024];
+    ret=msg.setData2Buffer(buf2,1024);
+    if(ret<Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+    int len=ret;
+    msg.setMagic("1234");
+    msg.setType(111);
+    msg.setData("zc",strlen("zc"));
+    msg.setData2Buffer(buf2+len,1024);
+    if(ret<Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+
+    Message msg2;
+    ret=msg2.getDataFromBuffer(buf2,ret);
+    if(ret<Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+    SYS_LOG(ZLOGINFO,"read Msg %s %d %s\n",msg2.getMagic().c_str(),msg2.getType(),(char*)msg2.getData());
+    len=ret;
+    
+    Message msg3;
+    ret=msg3.getDataFromBuffer(buf2+len,1024);
+     if(ret<Message::SUCCESS)
+    {
+        SYS_LOG(ZLOGINFO,"message err %d\n",ret);
+        return 0;
+    }
+    SYS_LOG(ZLOGINFO,"read Msg %s %d %s\n",msg3.getMagic().c_str(),msg3.getType(),(char*)msg3.getData());
+    
+    exit(0);
+}
 int main(int argc ,char * argv[])
 {
     lib_init();
-	znlog *zl=znlog::getInstance();
-    zl->set_level(ZLOGINFO,ZLOGINFO);
-    zl->set_log_file("proc.log");
-    createthread(createServer,0);
-    usleep(1000*100);
-    while(1)
-    {
-        printf(".");
-        usleep(1000*100);
-        fflush(stdout);
-    }
+    InitLog();
+    TestMsg();
+    // createthread(createServer,0);
+    // usleep(1000*100);
+    // while(1)
+    // {
+    //     printf(".");
+    //     usleep(1000*100);
+    //     fflush(stdout);
+    // }
 	return 0;
 }
