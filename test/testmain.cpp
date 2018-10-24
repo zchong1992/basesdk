@@ -184,6 +184,9 @@ int TestMsg()
     }
     SYS_LOG(ZLOGINFO,"read Msg %s %d %s\n",msg3.getMagic().c_str(),msg3.getType(),(char*)msg3.getData());
     
+    MessageReader mr;
+    mr.getDataFromBuffer(buf2,msg2.getSize()+msg3.getSize());
+    SYS_LOG(ZLOGINFO,"MessageReader read Msg num %d\n",mr.getSize());
     exit(0);
 }
 int main(int argc ,char * argv[])
