@@ -99,17 +99,17 @@ int znconfig::insertData(const char *key, const char *value) {
         return 1;
     }
 }
-void znconfig::save(const char *path) {
+int znconfig::save(const char *path) {
     zkv *pn;
     pn = m_zkv;
     if (pn == 0) {
-        return;
+        return -1;
     }
     if (path == 0)
-        return;
+        return -1;
     FILE *fp = fopen(path, "w");
     if (fp == 0)
-        return;
+        return -1;
     pn = m_zkv;
     do
     {
@@ -117,6 +117,7 @@ void znconfig::save(const char *path) {
         pn = pn->next;
     } while (pn != 0);
     fclose(fp);
+    return 0;
 }
 int znconfig::add(const char *key, const char *vlaue) {
     return 1;
@@ -215,14 +216,14 @@ int znconfig::loadfile(const char *filename) {
     if (fp)
         fclose(fp);
     fp = 0;
-    return 1;
+    return 0;
 ERRORDEAL:
     if (fp) {
         fclose(fp);
         fp = 0;
         CONFIGLOG("\tat line:%d\n", line);
     }
-    return 0;
+    return -1;
 }
 
 } // namespace baseservice

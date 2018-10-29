@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 2.5)
 project(baseservice)
 
+if (UNIX)
 add_definitions(-std=c++11)
 add_definitions(-g -O0)
+endif  (UNIX)
+
 set(incPath . .. ../inc)
 INCLUDE_DIRECTORIES( ${incPath})
 set(SRC aes.cpp 
@@ -37,9 +40,21 @@ set(INC
 set(outPutDir ${PROJECT_SOURCE_DIR})
 MESSAGE(STATUS "Project Directory: ${outPutDir}")
 
-add_library(baseservice SHARED ${SRC} ${INC})
-add_library(baseservice_static STATIC ${SRC} ${INC})
- 
+
+set(LIBS "")
+
+
+
+if (WIN32)
+set(LIBS "${LIBS} wsock32")
+endif  (WIN32)
+
+
+add_library(baseservice SHARED ${SRC} ${INC} )
+add_library(baseservice_static STATIC ${SRC} ${INC} )
+target_link_libraries(baseservice  ${LIBS})
+target_link_libraries(baseservice_static  ${LIBS})
+
 set_target_properties(baseservice_static PROPERTIES OUTPUT_NAME "baseservice")
 set_target_properties(baseservice PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 set_target_properties(baseservice_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
@@ -47,20 +62,5 @@ set_target_properties(baseservice PROPERTIES VERSION 1.0 SOVERSION 1)
 
 #ADD_LIBRARY(baseservice STATIC ${SRC} ${INC})  
 
-
-#install(FILES ../inc/aes.h 				DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/base64.h 			DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/baseDataType.h 	DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/config.h 			DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/dir.h 				DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/global.h 			DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/img.h 				DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/log.h 				DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/segmentfault.h 	DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/pointer.h 			DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/zlibnet.h 			DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/msgTransport.h 	DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../inc/cThread.h 			DESTINATION ${outPutDir}/../include/inc)
-#install(FILES ../libbaseservice.h 		DESTINATION ${outPutDir}/../include/)
 install(TARGETS  baseservice_static	    ARCHIVE DESTINATION ${outPutDir}/../lib/)
-install(TARGETS  baseservice		    LIBRARY DESTINATION ${outPutDir}/../lib/)
+#install(TARGETS  baseservice		    LIBRARY DESTINATION ${outPutDir}/../lib/)

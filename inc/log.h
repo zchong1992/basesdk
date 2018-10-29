@@ -1,4 +1,10 @@
 
+ /*!
+* \file log.h
+* \brief 自定义的log类,在有需要的时候可以改写为glog使用
+* \author zhengchong
+* \email  zhengchong@iristar.com.cn
+*/
 #ifndef __LOG_H__
 #define __LOG_H__
 
@@ -6,14 +12,19 @@
 namespace baseservice
 {
      
-
+/**
+* \brief 日志等级枚举
+*/
      enum level{
           ZLOGNOLOG=0,
 		  ZLOGERROR,
 		  ZLOGWARNING,
 		  ZLOGINFO
      };
-
+    
+/**
+* \brief 日志类,单例模式
+*/
      class znlog
      {
      public:

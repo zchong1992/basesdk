@@ -1,4 +1,11 @@
 
+ /*!
+* \file msgTransport.h
+* \brief 消息处理基类,用于网络格式化传输,文件保存,跨线程数据传输时使用,部分线程安全
+* \author zhengchong
+* \email  zhengchong@iristar.com.cn
+*/
+
 #ifndef __MSG_TRANSPORT_H__
 #define __MSG_TRANSPORT_H__
 #include "global.h"
@@ -6,6 +13,10 @@
 #include "zlibnet.h"
 namespace baseservice
 {
+     
+/**
+* \brief 错误类
+*/
 class ZERROR
 {
   public:
@@ -16,6 +27,10 @@ class ZERROR
     int errType;
 
 };
+     
+/**
+* \brief 消息封装类
+*/
 class Message
 {
   public:
@@ -59,6 +74,10 @@ class Message
     char mMagic[4];
     LOCKER mLocker;
 };
+ 
+/**
+* \brief 消息读取类,从buf中读取一组消息
+*/
 class MessageReader
 {
   public:
@@ -71,6 +90,11 @@ class MessageReader
 
   private:
 };
+
+ 
+/**
+* \brief 消息写入类,将一组消息写入一个buf
+*/
 class MessageWriter
 {
   public:
@@ -79,6 +103,9 @@ class MessageWriter
     MessageQueue mMQ;
 };
 
+/**
+* \brief 消息处理类,可以在MessageMananger中注册对应type类型的消息处理函数,需要重载dealMsg函数
+*/
 class MessageWorker
 {
   public:
@@ -90,6 +117,10 @@ class MessageWorker
     MessageWorker();
     int type;
 };
+
+/**
+* \brief 消息接收处理类,目前未完成
+*/
 class MessageMananger : public cThread
 {
   public:

@@ -1,5 +1,11 @@
 
 
+ /*!
+* \file global.h
+* \brief 被引用的标准库函数放在这里,为后期做编译优化而做的集中管理
+* \author zhengchong
+* \email  zhengchong@iristar.com.cn
+*/
 #ifndef __GLOBAL_H__
 #define __GLOBAL_H__    
 
@@ -74,7 +80,6 @@ typedef int LOCKER;
 #include <map>
 #include <list>
 #include <vector>
-typedef int pid_t;
 typedef pthread_mutex_t LOCKER;
 
 #define PTHRAED_INIT(locker)        pthread_mutex_init(locker,NULL)
@@ -84,6 +89,7 @@ typedef pthread_mutex_t LOCKER;
 
 #endif
 
+typedef int pid_t;
 #define SOCKET_ERROR            (-1)
 #define THIS_VERSION "2.0.9"
 #ifdef WIN32
@@ -189,6 +195,9 @@ void munllfuncLOHIhVASASD32dre90();
 
 //void resort(ZUINT1 * start, ZUINT1 *end);
 //void resort(INT1 * start, INT1 *end);
+/**
+* \brief resort 模板函数,做数据倒序
+*/
 template <typename Type>  void resort(Type * _start, Type *_end)
 {
      int size=sizeof(Type);
@@ -212,7 +221,9 @@ template <typename Type>  void resort(Type * _start, Type *_end)
           end-=size;
      }
 }
-
+/**
+* \brief resort 模板函数,做数据倒序
+*/
 template <typename Type>  void resort(Type * _start, Type *_end,int size)
 {
      
@@ -239,15 +250,32 @@ template <typename Type>  void resort(Type * _start, Type *_end,int size)
 #ifndef USE_VAR
 #define USE_VAR(a) if(&a==&a){}
 #endif
+/**
+* \brief cutOffTailOf_R_N_Space 删除字符串中首尾空格换行制表符
+*/
 void cutOffTailOf_R_N_Space(char *str);
+/**
+* \brief cutOffTailOf_R_N_Space 删除字符串中首尾空格换行制表符
+*/
 void cutOffTailOf_R_N_Space(char *str,int len);
 
+/**
+* \brief createthread 创建线程
+*/
 void *createthread(createdthread thread,void *mPara);
+
+/**
+* \brief set_thread_title 设置线程标题
+*/
 int set_thread_title(const char* fmt,...);
 long int gettid();
 #ifdef ZWINDOWS
 void usleep(int);
 #endif
+
+/**
+* \brief autolock 自动锁,构造时锁住,析构时解锁
+*/
 class autolock
 {
 public:

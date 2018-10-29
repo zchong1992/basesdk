@@ -216,7 +216,7 @@ int udpSocket::send(void *sendbuf, int len, zlibNetAddr addr)
 {
 	SOCKADDR_IN peeraddr=GetSOCKADD_INFromZlibNetAddr(addr);
 	int peerlen = sizeof(SOCKADDR_IN);
-	int recvNum = sendto(fd, sendbuf, len, 0, (struct sockaddr *)&peeraddr, sizeof(peeraddr));
+	int recvNum = sendto(fd,(const char*) sendbuf, len, 0, (struct sockaddr *)&peeraddr, sizeof(peeraddr));
 	return recvNum;
 }
 int udpSocket::send(void *sendbuf, int len, const char *ip, const unsigned short port)

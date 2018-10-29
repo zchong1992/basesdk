@@ -121,6 +121,7 @@ int InitLog()
 	znlog *zl=znlog::getInstance();
     zl->set_level(ZLOGINFO,ZLOGINFO);
     zl->set_log_file("test.log");
+	return  0;
 }
 int TestMsg()
 {
@@ -186,8 +187,8 @@ int TestMsg()
     
     MessageReader mr;
     mr.getDataFromBuffer(buf2,msg2.getSize()+msg3.getSize());
-    SYS_LOG(ZLOGINFO,"MessageReader read Msg num %d\n",mr.getSize());
-    exit(0);
+    SYS_LOG(ZLOGINFO,"MessageReader read Msg num %d\n",mr.getSize());;
+	return 0;
 }
 int main(int argc ,char * argv[])
 {
@@ -202,5 +203,8 @@ int main(int argc ,char * argv[])
     //     usleep(1000*100);
     //     fflush(stdout);
     // }
+#ifdef WIN32
+	getchar();
+#endif
 	return 0;
 }

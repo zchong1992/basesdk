@@ -1,25 +1,30 @@
 
-
-/******************************************
-*   author: zc							  *	
-*   date:  2018/2/26					  *
-*	���ļ�Ϊ����ģ��ļ�࿪�������࣬    *
-*   ���ٿ���ʱ��һЩ�������ظ��Թ�������  *
-*******************************************/
-
+/*!
+* \file zlibnet.h
+* \brief 封装的网络通讯类
+* \author zhengchong
+* \email  zhengchong@iristar.com.cn
+*/
 #ifndef __ZLIBNET_H__
 #define __ZLIBNET_H__
 
 #include "global.h"
 namespace baseservice
 {
-
+ 
+/**
+* \brief 网络地址,为了解决windows/linux 网络地址不通用问题
+*/
 struct zlibNetAddr
 {
 
     unsigned int ip;
     unsigned short port;
 };
+
+/**
+* \brief tcp的客户端,析构自动关闭socket
+*/
 class tcpClient
 {
 
@@ -35,6 +40,10 @@ class tcpClient
     int recv(void *buf, int bufSize, int flag);
     int fd;
 };
+
+/**
+* \brief tcp的服务端,运行时绑定端口,析构自动关闭socket
+*/
 class tcpServer
 {
   public:
@@ -50,6 +59,10 @@ class tcpServer
     int accept();
     int fd;
 };
+
+/**
+* \brief udp通讯,可以绑定端口,也可以直接发送消息
+*/
 class udpSocket
 {
   public:

@@ -285,6 +285,7 @@ void MessageReader::release()
 }
 int MessageWriter::setData2Buffer(void *buf, int bufLen)
 {
+	return 0;
 }
 MessageWorker::MessageWorker(int type)
 {

@@ -1,8 +1,9 @@
-/*
- * FileName : AES.h
- * Get From GitHub and zc fix some error
- * eamil :zhengchong_china@163.com
- */
+ /*!
+* \file aes.h
+* \brief 该头文件主要是用于aes的加密解密部分,目前支持MODE_OFB = 1, MODE_CFB, MODE_CBC, MODE_ECB  四种的128位加解密
+* \author zhengchong
+* \email  zhengchong@iristar.com.cn
+*/
 #ifndef __AES_H__
 #define __AES_H__
 
@@ -10,6 +11,10 @@
 
 namespace baseservice
 {
+    
+/**
+* \brief aes加解密操作基础类,不直接调用
+*/
 class AES  
 {
 public:
@@ -41,8 +46,15 @@ private:
      void InvShiftRows(ZUINT1 state[][4]);
      void InvMixColumns(ZUINT1 state[][4]);
 };
-
+  
+/**
+* \brief aes加解密类型枚举
+*/
 enum AESMode_t { MODE_OFB = 1, MODE_CFB, MODE_CBC, MODE_ECB };
+
+/**
+* \brief aes加解密操作类
+*/
 class AESModeOfOperation {
 private:
      AES *m_aes;
@@ -53,11 +65,46 @@ private:
 public:
      AESModeOfOperation();
      ~AESModeOfOperation();
+
+/**
+* \brief set_mode 加密方式选择类别  MODE_OFB , MODE_CFB, MODE_CBC, MODE_ECB
+* \param _mode  可选 MODE_OFB , MODE_CFB, MODE_CBC, MODE_ECB
+* \return 无返回值
+*/
      void set_mode(AESMode_t _mode);
      //AESMode_t get_mode();
+
+/**
+* \brief set_key 加密密钥设置 传入一个字符串作为密钥
+* \param key 字符串
+* \return 无返回值
+*/
      void set_key (ZUINT1 *key);
+
+/**
+* \brief set_iv 设置基础向量 传入一个16字节的buff设置为启动向量,建议传入全0的buffer,长度为16字节
+* \param iv 16字节的buff启动向量
+* \return 无返回值
+*/
      void set_iv(ZUINT1 *iv);
+
+/**
+* \brief Encrypt 加密数据,从input字段读入length长度的数据,并按16倍数向上取整写入output缓冲区内.
+* \param input 待加密内容
+* \param length 待加密长度
+* \param output 输出缓冲区 
+* \return >0 调用成功并输出转换后长度,一般为 (length+15/16)*16 ,<=0 加密失败
+*/
      int  Encrypt(const ZUINT1 *input, int length, ZUINT1 *output);
+
+
+/**
+* \brief Decrypt 解密数据,从input字段读入length长度的数据,并按16倍数向上取整写入output缓冲区内.
+* \param input 待解密内容
+* \param length 待解密长度
+* \param output 输出缓冲区 
+* \return >0 调用成功并输出转换后长度,一般为 (length+15/16)*16 ,<=0 解密失败
+*/
      int  Decrypt(const ZUINT1 *input, int length, ZUINT1 *output);
 };
 
