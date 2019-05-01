@@ -47,7 +47,7 @@ int tcpClient::init()
 {
 
 	fd = socket(AF_INET, SOCK_STREAM, 0);
-	return fd;
+	return fd == 0;
 }
 int tcpClient::release()
 {
@@ -63,7 +63,7 @@ int tcpClient::release()
 }
 int tcpClient::connect(zlibNetAddr addr)
 {
-	struct sockaddr_in serAddr=GetSOCKADD_INFromZlibNetAddr(addr);
+	struct sockaddr_in serAddr = GetSOCKADD_INFromZlibNetAddr(addr);
 	return ::connect(fd, (sockaddr *)&serAddr, sizeof(serAddr));
 }
 int tcpClient::connect(const char *ip, const char *port)
@@ -106,7 +106,7 @@ int tcpServer::init()
 }
 int tcpServer::bind(zlibNetAddr addr)
 {
-	SOCKADDR_IN addrSrv=GetSOCKADD_INFromZlibNetAddr(addr);
+	SOCKADDR_IN addrSrv = GetSOCKADD_INFromZlibNetAddr(addr);
 	return ::bind(fd, (SOCKADDR *)&addrSrv, sizeof(SOCKADDR));
 }
 int tcpServer::bind(const char *ip, const char *port)
@@ -184,7 +184,7 @@ int udpSocket::init()
 }
 int udpSocket::bind(zlibNetAddr addr)
 {
-	SOCKADDR_IN addrSrv=GetSOCKADD_INFromZlibNetAddr(addr);
+	SOCKADDR_IN addrSrv = GetSOCKADD_INFromZlibNetAddr(addr);
 	return ::bind(fd, (SOCKADDR *)&addrSrv, sizeof(SOCKADDR));
 }
 
@@ -198,36 +198,38 @@ int udpSocket::bind(const char *ip, const char *port)
 	zlibNetAddr addr = GetZlibNetAddrFromIpAndPort(ip, port);
 	return bind(addr);
 }
-int udpSocket::recv(void *recvbuf, int buflen, zlibNetAddr*addr)
+int udpSocket::recv(void *recvbuf, int buflen, zlibNetAddr *addr)
 {
-	SOCKADDR_IN peeraddr=GetSOCKADD_INFromZlibNetAddr(*addr);
+	SOCKADDR_IN peeraddr = GetSOCKADD_INFromZlibNetAddr(*addr);
 	int peerlen = sizeof(SOCKADDR_IN);
-	int recvNum = recvfrom(fd, (char *)recvbuf, buflen, 0, 
-			(struct sockaddr *)&peeraddr, (socklen_t *)&peerlen);
+	int recvNum = recvfrom(fd, (char *)recvbuf, buflen, 0,
+						   (struct sockaddr *)&peeraddr, (socklen_t *)&peerlen);
 	return recvNum;
 }
 
 int udpSocket::recv(void *recvbuf, int buflen)
 {
 	zlibNetAddr aa;
-	return recv(recvbuf,buflen,&aa);
+	return recv(recvbuf, buflen, &aa);
 }
 int udpSocket::send(void *sendbuf, int len, zlibNetAddr addr)
 {
-	SOCKADDR_IN peeraddr=GetSOCKADD_INFromZlibNetAddr(addr);
+	SOCKADDR_IN peeraddr = GetSOCKADD_INFromZlibNetAddr(addr);
 	int peerlen = sizeof(SOCKADDR_IN);
-	int recvNum = sendto(fd,(const char*) sendbuf, len, 0, (struct sockaddr *)&peeraddr, sizeof(peeraddr));
+	int recvNum = sendto(fd, (const char *)sendbuf, len, 0, (struct sockaddr *)&peeraddr, sizeof(peeraddr));
 	return recvNum;
 }
 int udpSocket::send(void *sendbuf, int len, const char *ip, const unsigned short port)
 {
-	zlibNetAddr zaddr=GetZlibNetAddrFromIpAndPort(ip, port);
-	return send(sendbuf,len,zaddr);;
+	zlibNetAddr zaddr = GetZlibNetAddrFromIpAndPort(ip, port);
+	return send(sendbuf, len, zaddr);
+	;
 }
 int udpSocket::send(void *sendbuf, int len, const char *ip, const char *port)
 {
-	zlibNetAddr zaddr=GetZlibNetAddrFromIpAndPort(ip, port);
-	return send(sendbuf,len,zaddr);;
+	zlibNetAddr zaddr = GetZlibNetAddrFromIpAndPort(ip, port);
+	return send(sendbuf, len, zaddr);
+	;
 }
 
 }; // namespace baseservice
