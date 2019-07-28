@@ -4,10 +4,41 @@
 * \file global.h
 * \brief 被引用的标准库函数放在这里,为后期做编译优化而做的集中管理
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __GLOBAL_H__
-#define __GLOBAL_H__    
+#define __GLOBAL_H__   
+
+
+#include <cassert>
+#include <time.h>   
+#include <cassert>
+#include <stdarg.h>  
+#include <time.h>
+#include <unistd.h>
+#include <map>
+#include <map>
+#include <list>
+#include <list>
+#include <pthread.h>  
+#include <string>
+#include <stdio.h>  
+#include <string.h>  
+#include <stdlib.h>  
+#include <stdio.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
+#include <stdarg.h>  
+#include <stdio.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
+#include <vector>
+#include <vector>
+
 
 #ifdef  WIN32
 #define ZWINDOWS
@@ -17,26 +48,10 @@
 
 #ifdef ZWINDOWS
 #include <errno.h>
-#include <fcntl.h>
-#include <iostream>
-#include <string>
-#include <stdio.h>  
-#include <string.h>  
-#include <stdlib.h>  
+#include <fcntl.h> 
 #include <sys/types.h>  
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-#include <cassert>
-#include <stdarg.h>  
-#include <time.h>   
-#include <map>
-#include <list>
-#include <vector>
 typedef int LOCKER;
 #define PTHREAD_LOCK(locker) 
 #define PTHRAED_INIT(locker)     
@@ -51,15 +66,9 @@ typedef int LOCKER;
 #include <dirent.h> 
 #include <errno.h>
 #include <execinfo.h>
-#include <fcntl.h>
-#include <iostream>
+#include <fcntl.h> 
 #include <netinet/in.h>
 #include <netinet/ip.h>
-#include <pthread.h>  
-#include <string>
-#include <stdio.h>  
-#include <string.h>  
-#include <stdlib.h>  
 #include <sys/types.h>  
 #include <sys/prctl.h>
 #include <sys/ipc.h>
@@ -68,18 +77,6 @@ typedef int LOCKER;
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/types.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-#include <cassert>
-#include <stdarg.h>  
-#include <time.h>
-#include <unistd.h>
-#include <map>
-#include <list>
-#include <vector>
 typedef pthread_mutex_t LOCKER;
 
 #define PTHRAED_INIT(locker)        pthread_mutex_init(locker,NULL)
@@ -121,7 +118,7 @@ typedef unsigned char UCHAR;
 
 
 
-namespace baseservice
+namespace zSpace
 {
 
 #pragma pack(1)

@@ -3,7 +3,7 @@
 * \file img.h
 * \brief 为图像添加头部信息,可以以文件流的方式,存在于内存中,用于对android通讯的加速
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __IMG_H__
 #define __IMG_H__
@@ -11,7 +11,7 @@
 #include "global.h"
 #include "log.h"
 
-namespace baseservice{
+namespace zSpace{
     
 /**
 * \brief 图像操作类,生成头部信息和jpeg转码操作

@@ -3,13 +3,13 @@
 * \file zlibnet.h
 * \brief 封装的网络通讯类
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __ZLIBNET_H__
 #define __ZLIBNET_H__
 
 #include "global.h"
-namespace baseservice
+namespace zSpace
 {
  
 /**
@@ -82,6 +82,6 @@ class udpSocket
     int fd;
 };
 
-}; // namespace baseservice
+}; // namespace zSpace
 
 #endif

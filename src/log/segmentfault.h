@@ -4,13 +4,13 @@
 * \file segmentfault.h
 * \brief linux错误捕捉类,程序初始化时调用一次,在程序异常时,打印堆栈
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __SEGMENTFAULT_H__
 #define __SEGMENTFAULT_H__
 #include "global.h"
 #include "log.h"
-namespace baseservice{
+namespace zSpace{
         
 /**
 * \brief 线程信息,包含线程名和线程id

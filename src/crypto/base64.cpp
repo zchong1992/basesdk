@@ -1,6 +1,6 @@
 #include "base64.h"
 #include "global.h"
-namespace baseservice
+namespace zSpace
 {
 
 static unsigned char *base64table = (ZUINT1*)"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -87,4 +87,4 @@ int base64decode(unsigned char *out, unsigned char *in, int length) {
     }
     return len;
 }
-} // namespace baseservice
+} // namespace zSpace

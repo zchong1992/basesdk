@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace baseservice
+namespace zSpace
 {
 #ifdef ZWINDOWS
 void usleep(int time) {
@@ -329,4 +329,4 @@ int znlog::set_log_file(const char *name) {
     }
     return 0;
 }
-} // namespace baseservice
+} // namespace zSpace

@@ -1,7 +1,7 @@
 #include "baseDataType.h"
 #include "log.h"
 using namespace std;
-namespace baseservice
+namespace zSpace
 {
 
 baseKV_s::baseKV_s() {
@@ -67,4 +67,4 @@ void baseImg_s::Realease() {
 		delete data;
 	memset(this, 0, sizeof(struct baseImg_s));
 }
-}; // namespace baseservice
+}; // namespace zSpace

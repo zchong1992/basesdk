@@ -2,9 +2,9 @@
 * \file baseDataType.h
 * \brief 用于基本类型定义
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
-namespace baseservice
+namespace zSpace
 {
 /**
 * \brief baseKV_s kv数据结构,被其他接口调用

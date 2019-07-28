@@ -3,15 +3,15 @@
 * \file msgTransport.h
 * \brief 消息处理基类,用于网络格式化传输,文件保存,跨线程数据传输时使用,部分线程安全
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 
 #ifndef __MSG_TRANSPORT_H__
 #define __MSG_TRANSPORT_H__
-#include "global.h"
-#include "cThread.h"
-#include "zlibnet.h"
-namespace baseservice
+#include "../global.h"
+#include "../thread/cThread.h"
+#include "../net/zlibnet.h"
+namespace zSpace
 {
      
 /**
@@ -135,6 +135,6 @@ class MessageMananger : public cThread
     MessageQueue mMQ;
     LOCKER mWQL, mMQL;
 };
-}; // namespace baseservice
+}; // namespace zSpace
 
 #endif

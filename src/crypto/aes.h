@@ -1,15 +1,15 @@
- /*!
+ /**
 * \file aes.h
 * \brief 该头文件主要是用于aes的加密解密部分,目前支持MODE_OFB = 1, MODE_CFB, MODE_CBC, MODE_ECB  四种的128位加解密
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __AES_H__
 #define __AES_H__
 
 #include "global.h"
 
-namespace baseservice
+namespace zSpace
 {
     
 /**

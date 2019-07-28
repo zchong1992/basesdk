@@ -4,7 +4,7 @@
 #include "log.h"
 #include <string>
 using namespace std;
-namespace baseservice
+namespace zSpace
 {
 
 string GetIpFromZlibNetAddr(zlibNetAddr addr)
@@ -232,4 +232,4 @@ int udpSocket::send(void *sendbuf, int len, const char *ip, const char *port)
 	;
 }
 
-}; // namespace baseservice
+}; // namespace zSpace

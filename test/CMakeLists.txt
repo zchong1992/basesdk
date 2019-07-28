@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 project(testLib)
 
-INCLUDE_DIRECTORIES( ..)
+INCLUDE_DIRECTORIES( .. ../src)
 set(src testmain.cpp)
 
 add_definitions(-g -O0)
 add_executable(testLib ${src})
-target_link_libraries(testLib baseservice)
+target_link_libraries(testLib zSpace)
 
 find_package(Threads REQUIRED)  
 if(THREADS_HAVE_PTHREAD_ARG)  

@@ -3,13 +3,13 @@
 * \file log.h
 * \brief 自定义的log类,在有需要的时候可以改写为glog使用
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __LOG_H__
 #define __LOG_H__
 
 #include "global.h"
-namespace baseservice
+namespace zSpace
 {
      
 /**

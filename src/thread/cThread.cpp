@@ -2,7 +2,7 @@
 #include "cThread.h"
 
 using namespace std;
-using namespace baseservice;
+using namespace zSpace;
 void cThread::start()
 {
     createthread(cThread::startThread,this);

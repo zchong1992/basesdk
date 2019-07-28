@@ -2,7 +2,7 @@
 
 #include "img.h"
 
-namespace baseservice
+namespace zSpace
 {
 int zkznImg::jpeg2buf(ZUINT1 *dst, ZINT4 *buflen, ZUINT1 *inbuf, ZINT4 width, ZINT4 height, ZINT4 channels, ZINT4 quality) {
 #if 0
@@ -50,8 +50,8 @@ int zkznImg::jpeg2buf(ZUINT1 *dst, ZINT4 *buflen, ZUINT1 *inbuf, ZINT4 width, ZI
            row_stride = width * channels; // JSAMPLEs per row in image_buffer 
      
            while (cinfo.next_scanline < cinfo.image_height) {
-                //ÕâÀïÎÒ×ö¹ýÐÞ¸Ä£¬ÓÉÓÚjpgÎÄ¼þµÄÍ¼ÏñÊÇµ¹µÄ£¬ËùÒÔ¸ÄÁËÒ»ÏÂ¶ÁµÄË³Ðò
-                //ÕâÊÇÔ­´úÂë£ºrow_pointer[0] = & bits[cinfo.next_scanline * row_stride];
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä£ï¿½ï¿½ï¿½ï¿½ï¿½jpgï¿½Ä¼ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Çµï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½Ò»ï¿½Â¶ï¿½ï¿½ï¿½Ë³ï¿½ï¿½
+                //ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ë£ºrow_pointer[0] = & bits[cinfo.next_scanline * row_stride];
 #if 0
                 row_pointer[0] = & inbuf[(cinfo.image_height - cinfo.next_scanline - 1) * row_stride];
 #else
@@ -149,4 +149,4 @@ int zkznImg::createbmpheader(unsigned char *buf, int *length, const int width, c
     }
     return -1;
 }
-} // namespace baseservice
+} // namespace zSpace

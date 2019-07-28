@@ -1,7 +1,7 @@
 #include "msgTransport.h"
 
 using namespace std;
-namespace baseservice
+namespace zSpace
 {
 // enum {
 //     SUCCESS=0,
@@ -313,4 +313,4 @@ int MessageMananger::run()
 {
     return 0;
 }
-} // namespace baseservice
+} // namespace zSpace

@@ -2,13 +2,13 @@
 * \file base64.h
 * \brief 该头文件主要是用于base64转码的操作
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __BASE64_H__
 #define __BASE64_H__
 
 #include "global.h"
-namespace baseservice{
+namespace zSpace{
 
 /**
 * \brief base64encode base64转码函数

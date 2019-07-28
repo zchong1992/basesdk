@@ -3,7 +3,7 @@
 * \file config.h
 * \brief 配置文件读写
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
@@ -12,7 +12,7 @@
 
 
 
-namespace baseservice
+namespace zSpace
 {
     typedef  struct znconfigkv{
         std::string key;

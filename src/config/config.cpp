@@ -1,6 +1,6 @@
 #include "config.h"
 #include "log.h"
-namespace baseservice
+namespace zSpace
 {
 
 #if 0
@@ -226,4 +226,4 @@ ERRORDEAL:
     return -1;
 }
 
-} // namespace baseservice
+} // namespace zSpace

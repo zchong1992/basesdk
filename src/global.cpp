@@ -1,7 +1,7 @@
 #include "global.h"
 #include "log.h"
 using namespace std;
-namespace baseservice
+namespace zSpace
 {
 #ifdef ZWINDOWS
 int gettimeofday(timeval *tm, void *) {
@@ -196,4 +196,4 @@ int printLine(const char *str, int maxlen) {
     return 0;
 }
 
-} // namespace baseservice
+} // namespace zSpace

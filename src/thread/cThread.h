@@ -3,7 +3,7 @@
 * \file cthread.h
 * \brief 线程类,虚基类,用于新启动线程时调用
 * \author zhengchong
-* \email  zhengchong@iristar.com.cn
+* \email  zhengchong_china@outlook.com
 */
 #ifndef __ZKHX_THREAD_H__
 #define __ZKHX_THREAD_H__

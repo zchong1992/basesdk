@@ -1,7 +1,11 @@
-#include "libbaseservice.h"
+
+#include "net/zlibnet.h"
+#include "event/msgTransport.h"
+#include "log/log.h"
+#include "thread"
 #include "string.h"
 using namespace std;
-using namespace baseservice;
+using namespace zSpace;
 #ifdef ZWINDOWS
 #pragma comment(lib,"ws2_32.lib")
 #endif
@@ -191,8 +195,7 @@ int TestMsg()
 	return 0;
 }
 int main(int argc ,char * argv[])
-{
-    lib_init();
+{ 
     InitLog();
     TestMsg();
     // createthread(createServer,0);

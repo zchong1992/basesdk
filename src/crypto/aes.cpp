@@ -9,7 +9,7 @@
 #include <cassert>
 #include <stdlib.h>
 #endif
-namespace baseservice
+namespace zSpace
 {
 
 AES::AES(ZUINT1 *key) {
@@ -515,4 +515,4 @@ int AESModeOfOperation::Decrypt(const ZUINT1 *_in, int _length, ZUINT1 *_out) {
     printf("\n");
     return po_index;
 }
-} // namespace baseservice
+} // namespace zSpace

@@ -1,7 +1,7 @@
 #include "log.h"
 #include "segmentfault.h"
 
-namespace baseservice
+namespace zSpace
 {
 
 long int gettid() {
@@ -150,4 +150,4 @@ void znsegfault_catch::print_seg_frame(int signal) {
 #endif
 }
 
-}; // namespace baseservice
+}; // namespace zSpace
